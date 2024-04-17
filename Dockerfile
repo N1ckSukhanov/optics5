@@ -19,7 +19,7 @@ COPY ./src ./src
 RUN mvn clean
 RUN mvn package
 
-ENTRYPOINT ["java", "-jar", "/opt/app/target/pack-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/opt/app/target/optics-0.0.1-SNAPSHOT.jar"]
 
 #FROM maven:3.9.6-eclipse-temurin-21-alpine
 #WORKDIR /opt/app
