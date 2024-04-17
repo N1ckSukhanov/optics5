@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <title>Customers</title>
+</head>
+<body>
+<h2>Клиенты</h2>
+
+<h3><a href="/prod">Перейти в Заказы</a></h3>
+
+<form th:method="GET" th:action="@{/customers}">
+
+    <label class="search-name">Поиск</label>
+    <input class="search" th:name="search" th:value="${search}" placeholder="Имя или Телефон"/>
+
+    <button class="search-but">Найти</button>
+</form>
+
+<h3 th:if="${current != null}">
+    Выбран Клиент -
+    <span th:text=" ${current.getName()} + ' ' + ${current.getPhone()}"></span>
+    <br/>
+    <span><a href="/customers/clear_choose">Удалить Выбор Клиента</a></span>
+</h3>
+
+<h3 th:if="${current == null}">
+    Клиент ещё не выбран
+</h3>
+
+<h3 th:if="${customers != null && customers.isEmpty() && search != null}">
+    <a href="/customers/create?fill=True">Создать Клиента на основе Поиска</a>
+</h3>
+
+
+<h3><a href="/customers/create">Новый Клиент</a></h3>
+
+<ul th:each="customer: ${customers}">
+    <li>Имя: <span th:text="${customer.name}"></span></li>
+    <li>Телефон: <span th:text="${customer.phone}"></span></li>
+    <li>Дата рождения: <span th:text="${customer.birthday}"></span></li>
+    <li>
+        <a th:href="@{/customers/choose/{id}(id=${customer.getId()})}">
+            Выбрать
+        </a>
+    </li>
+
+</ul>
+
+
+</body>
+</html>

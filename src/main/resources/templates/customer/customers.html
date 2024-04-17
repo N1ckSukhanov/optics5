@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customers</title>
+    <link rel="stylesheet" href="customers.css">
+</head>
+<body>
+
+<div th:fragment="customers(customers)">
+    <div th:each="customer: ${customers}" class="customer_info">
+        <div class="customer_container">
+            <div th:text="${customer}">Алексей</div>
+            <span class="right_elem">
+                <a th:href="@{/customers/delete/{id}(id=${customer.getId()},search=${search})}">X</a>
+            </span>
+        </div>
+        <span class="search-but"><a th:href="@{/customers/choose/{id}(id=${customer.getId()})}">Выбрать</a></span>
+    </div>
+
+    <div th:if="${customers.isEmpty()}">
+        <h3 class="customer_heading">Клиенты не найдены</h3>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="customers.css">
+</head>
+<body>
+
+<div th:fragment="customer_from_recipe(customer, customers)">
+    <!--    <h4 class="change-client"><a href="/">Выбрать клиента позже</a></h4>-->
+    <h4 class="change-client"><a href="/customers/create">Создать Клиента на основе Поиска</a></h4>
+
+    <div class="customer_form">
+        <form th:action="@{/customers/from_recipe}" th:object="${customer}" th:method="POST">
+            <div th:replace="~{parts :: hidden(id, ${customer.getId()})}"></div>
+            <div th:replace="~{parts :: field('Имя', name)}"></div>
+            <div th:replace="~{parts :: field('Телефон', phone)}"></div>
+            <button class="search-but">Найти Заново</button>
+        </form>
+    </div>
+
+    <div th:replace="~{customer/customers :: customers(${customers})}"></div>
+</div>
+
+</body>
+</html>

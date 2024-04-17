@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="products.css">
+    <title>Products</title>
+</head>
+<body>
+
+<div th:fragment="products(products, current)">
+    <div th:if="${!products.isEmpty()}">
+        <h3 th:if="${current == null}" class="product_heading">Оформление</h3>
+        <div th:if="${current != null}">
+            <h3 class="product_heading">Все Заказы</h3>
+            <h3>Клиент: <span th:text="${current.name} + '  ' + ${current.phone}"></span></h3>
+            <h4><span th:text="'Сумма заказов: ' + ${current.getProductSum()}"></span></h4>
+            <h4><span th:text="'Кол-во заказов: ' + ${current.getProductCount()}"></span></h4>
+            <h4><span th:text="'Текущая скидка: ' + ${current.getDiscount()} + '%'"></span></h4>
+        </div>
+
+        <div th:each="product: ${products}" class="product_info">
+            <div class="product-new-line">
+                <a th:href="@{/products/open/{id}(id=${product.getId()})}">
+                    <span th:text="${product.shortName()}">shortName</span>
+                </a>
+                <span th:if="${product.getProductType().name().equals('RECIPE')}">
+                    <div class="print_recipe">
+                        <a th:href="@{/products/print/{id}(id=${product.getId()})}">Печать</a>
+                        <a th:href="@{/products/delete/{id}(id=${product.getId()})}">X</a>
+                    </div>
+                </span>
+            </div>
+            <div th:if="${product.opened}">
+                <div th:text="${product}" class="opened_product_info"></div>
+                <span><a th:href="@{/products/edit/{id}(id=${product.getId()})}">Редактировать</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${!images.isEmpty()}" class="product_image">
+        <div th:each="image: ${images}">
+            <img src="" th:attrappend="src=${image.getImage()}" width="500px" alt="image">
+            <div><a th:href="@{/products/images/{image_id}/delete(image_id=${image.getId()})}">Удалить</a></div>
+        </div>
+    </div>
+
+    <div th:if="${products.isEmpty()}">
+        <h3 th:if="${current == null}" class="product_heading_info">Корзина ещё пуста</h3>
+        <h3 th:if="${current != null}" class="product_heading_info">У данного клиента ещё нет заказов</h3>
+    </div>
+</div>
+
+
+</body>
+</html>

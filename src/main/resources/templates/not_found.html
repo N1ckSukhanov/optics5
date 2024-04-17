@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Not Found</title>
+</head>
+<body>
+
+<div th:fragment="not_found(my_path)">
+    <h4>Страница не найдена: /<span th:text="${my_path}"></span></h4>
+    <hr/>
+    <!--    <h3><a class="btn-sidebar clr-0" href="/products/show_products">Вернуться</a></h3>-->
+</div>
+
+</body>
+</html>

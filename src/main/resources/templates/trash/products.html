@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <title>Purchases</title>
+</head>
+<body>
+
+<div th:if="${customer == null}">
+    <h3><a href="/customers">Выбрать клиента</a></h3>
+    <hr/>
+</div>
+
+<div th:if="${customer != null}">
+    <h3><a href="/customers">Поменять клиента</a></h3>
+    <hr/>
+    <h3 th:text="'Выбран клиент' + ${customer.name} + ' - ' + ${customer.phone}"></h3>
+    <hr/>
+    <h3 th:if="${showOrders}"><a href="/prod/show_orders">Скрыть все заказы</a></h3>
+    <h3 th:if="${!showOrders}"><a href="/prod/show_orders">Показать все заказы</a></h3>
+    <hr/>
+</div>
+
+
+<h3><a href="/products/recipe">Заказ на Очки</a></h3>
+<h3><a href="/products/lenses">Контактные Линзы</a></h3>
+<h3><a href="/products/sunglasses">С/З Очки</a></h3>
+<h3><a href="/products/cases">Футляры</a></h3>
+<h3><a href="/products/accessories">Аксессуары</a></h3>
+<h3><a href="/products/otherOld">Прочее</a></h3>
+
+<hr/>
+
+<!-- Клиент не выбран, товары кладём в корзину -->
+
+<div th:if="${customer == null}">
+    <div th:if="${!cart.isEmpty()}">
+        <h3>Оформление</h3>
+        <div th:each="product: ${cart}" class="info">
+            <b><span th:text="${product.getTypeName()}"></span></b>
+            <br/>
+            <div th:text="${product}"></div>
+        </div>
+    </div>
+
+    <h3 th:if="${cart.isEmpty()}">Корзина ещё пуста</h3>
+</div>
+
+<!-- Клиент выбран, товары кладём сразу в заказы -->
+
+<div th:if="${customer != null}">
+    <!-- В списке заказов есть товары -->
+    <div th:if="${!orders.isEmpty()}">
+        <div th:if="${showOrders}">
+            <h3>Все Заказы</h3>
+            <div th:each="product: ${orders}" class="info">
+                <b><span th:text="${product.getTypeName()}"></span></b>
+                <br/>
+                <div th:text="${product}"></div>
+            </div>
+        </div>
+
+        <h3 th:if="${!showOrders}">Список заказов клиента скрыт</h3>
+    </div>
+
+    <h3 th:if="${orders.isEmpty()}">У данного клиента ещё нет заказов</h3>
+</div>
+
+</body>
+</html>

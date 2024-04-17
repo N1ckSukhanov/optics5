@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="customers.css">
+    <link rel="stylesheet" th:href="@{/customers.css}">
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <title>Новый Клиент</title>
+</head>
+<body>
+
+<div th:fragment="customer(customer)">
+    <h3 class="customer_heading">Новый Клиент</h3>
+
+    <div class="customer_form">
+        <form th:action="@{/customers/add}" th:object="${customer}" th:method="POST">
+            <div th:replace="~{parts :: hidden(id, ${customer.getId()})}"></div>
+            <div th:replace="~{parts :: field('Имя', name)}"></div>
+            <div th:replace="~{parts :: field('Телефон', phone)}"></div>
+            <div th:replace="~{parts :: date('Дата рождения', birthday)}"></div>
+            <button style="margin-top: 20px;" class="search-but">Сохранить</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
+
+<script th:src="@{/validation.js}"></script>

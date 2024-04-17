@@ -1,0 +1,65 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style-type: none;
+    box-sizing: border-box;
+    color: black;
+}
+
+.print_recipe {
+    display: flex;
+    gap: 30px;
+}
+
+.product_heading {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    font-size: 25px;
+    margin-bottom: 10px;
+    font-family: 'Times New Roman';
+}
+
+.product_heading_info {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: 'Times New Roman';
+}
+
+.product_info {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.product-new-line {
+    display: flex;
+    gap: 5px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.product-new-line::before {
+    content: "";
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    top: -10px;
+    background: linear-gradient(90deg, rgba(16, 70, 214, 1) 0%, rgba(18, 222, 58, 1) 50%, rgba(255, 218, 0, 1) 100%);
+}
+
+.product_image {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.opened_product_info {
+    font-size: 20px;
+    font-family: 'Verdana', sans-serif;
+    white-space: pre-line;
+    line-height: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

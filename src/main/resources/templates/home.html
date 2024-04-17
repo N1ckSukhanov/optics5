@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-with, initial-scale: 1.0">
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <link rel="icon" type="image/ico" th:href="@{/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/new_recipe.css}">
+    <link rel="stylesheet" th:href="@{/print.css}">
+    <link rel="stylesheet" th:href="@{/products.css}">
+    <link rel="stylesheet" th:href="@{/customers.css}">
+    <link rel="stylesheet" th:href="@{/new_lenses.css}">
+    <link rel="stylesheet" href="style.css">
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <title>Главная</title>
+</head>
+
+<body>
+<header>
+    <form class="search-form" th:method="GET" th:action="@{/}">
+        <label class="search-label">Поиск</label>
+        <input class="search" th:id="search" th:name="search" th:value="${search}" placeholder="Телефон / Имя"
+               autocomplete="off"/>
+        <button class="search-btn">Найти</button>
+    </form>
+    <div class="hedaer-gui-container">
+        <div class="header-gui">
+            <div class="left-block">
+                <div th:if="${current != null}">
+                    <span th:text="'Выбран клиент ' + ${current.name} + ' - ' + ${current.phone}"></span>
+                </div>
+                <div th:if="${current == null}">
+                    <span>Клиент ещё не выбран</span>
+                </div>
+            </div>
+            <div class="right-block">
+                <div th:if="${current != null}">
+                        <span class="header-btn">
+                            <a href="/customers/clear_choose">Сменить Клиента</a>
+                        </span>
+                </div>
+                <div th:if="${current == null}">
+                        <span class="header-btn">
+                            <a href="/customers/create">Создать Клиента</a>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Website page - with sidebar on the left side and content on the right -->
+<div class="page">
+    <aside>
+        <ul>
+            <li><a class="btn-sidebar clr-0" href="/products/show_products">Перейти к Заказам</a></li>
+            <li><a class="btn-sidebar clr-1" href="/products/recipe">Заказ на Очки</a></li>
+            <li><a class="btn-sidebar clr-2" href="/products/lenses">Контактные Линзы</a></li>
+            <li><a class="btn-sidebar clr-2" href="/products/other/sunglasses">С/З Очки</a></li>
+            <li><a class="btn-sidebar clr-2" href="/products/other/case">Футляры</a></li>
+            <li><a class="btn-sidebar clr-2" href="/products/other/accessory">Аксессуары</a></li>
+            <li><a class="btn-sidebar clr-2" href="/products/other/other">Прочее</a></li>
+            <li><a class="btn-sidebar clr-2" href="/products/upload">Загрузить фото</a></li>
+            <li><a class="btn-sidebar clr-3" href="/options">Добавить опции</a></li>
+        </ul>
+    </aside>
+    <!--<img src="" th:attrappend="src=${image}" width="500px">-->
+
+    <main class="content">
+        <div th:if="${appState.equals(appState.NOT_FOUND)}">
+            <div th:replace="~{not_found :: not_found(${my_path})}"></div>
+        </div>
+
+        <div th:if="${appState.equals(appState.PRODUCTS) || appState.equals(appState.NOT_FOUND)}">
+            <div th:replace="~{product/products :: products(${products}, ${current})}"></div>
+        </div>
+
+        <div th:if="${appState.equals(appState.CUSTOMERS)}">
+            <div th:replace="~{customer/customers :: customers(${customers})}"></div>
+        </div>
+
+        <div th:if="${appState.equals(appState.NEW_CUSTOMER)}">
+            <div th:replace="~{customer/new_customer :: customer(${customer})}"></div>
+        </div>
+
+        <div th:if="${appState.equals(appState.NEW_RECIPE)}">
+            <div
+                    th:replace="~{product/new_recipe :: recipe(${product}, ${current}, ${ratioOptions}, ${coverageOptions},
+                    ${geometryOptions}, ${sphOptions}, ${cylOptions}, ${axOptions}, ${addOptions}, ${distOptions})}"
+            ></div>
+        </div>
+
+        <div th:if="${appState.equals(appState.NEW_LENSES)}">
+            <div
+                    th:replace="~{product/new_lenses :: lenses(${product},
+                    ${nameOptions}, ${colorOptions}, ${powerOptions}, ${curvatureOptions})}"
+            ></div>
+        </div>
+
+        <div th:if="${appState.equals(appState.NEW_OTHER)}">
+            <div th:replace="~{product/new_other :: other(${product}, ${isSunglasses})}"></div>
+        </div>
+
+        <div th:if="${appState.equals(appState.CUSTOMER_FROM_RECIPE)}">
+            <div th:replace="~{customer/customer_from_recipe :: customer_from_recipe(${customer}, ${customers})}"></div>
+        </div>
+
+        <div th:if="${appState.equals(appState.CHOOSE_OPTION)}">
+            <div th:replace="~{option/choose_option :: choose_option(${option}, ${chooseOptions})}"></div>
+        </div>
+
+        <div th:if="${appState.equals(appState.NEW_OPTION)}">
+            <div th:replace="~{option/new_option :: new_option(${option}, ${currentOption}, ${addedOptions})}"></div>
+        </div>
+    </main>
+</div>
+</body>
+<script th:src="@{/calculate_recipe.js}"></script>
+<script th:src="@{/validation.js}"></script>
+<script th:src="@{/check_num.js}"></script>
+<script th:src="@{/input.js}"></script>
+<script th:src="@{/validation.js}"></script>
+</html>

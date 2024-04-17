@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+
+<div th:fragment="new_option(option, currentOption, addedOptions)">
+    <h4 class="change-option"><a href="/options/clear">Выбрать другое свойство</a></h4>
+
+    <h3 th:text="'Выбрано свойство: ' + ${currentOption.getReadableType()}" class="option_heading"></h3>
+
+    <form th:action="@{/options/add}" th:object="${option}" th:method="POST" class="options-form">
+        <div th:replace="~{parts :: hidden(type, ${option.getType()})}"></div>
+        <div th:replace="~{parts :: field('Название', name)}"></div>
+        <button class="search-but">Добавить</button>
+    </form>
+
+    <h3 style="margin-top: 20px;" class="option_heading">Добавленные свойства:</h3>
+
+    <div th:each="option: ${addedOptions}" class="added-options">
+        <span th:text="${option.name}"></span>
+        <span class="right_elem">
+            <a th:href="@{/options/delete/{id}(id=${option.getId()})}">X</a>
+        </span>
+    </div>
+</div>
+
+</body>
+</html>

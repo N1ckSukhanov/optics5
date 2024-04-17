@@ -1,0 +1,27 @@
+<ul th:each="purchase: ${cart}">
+        <li>Номер заказа: <span th:text="${purchase.purchaseId}"></span></li>
+        <li>Для кого: <span th:text="${purchase.forWho}"></span></li>
+        <li>Оправа: <span th:text="${purchase.frame}"></span></li>
+        <li>Линзы: <span th:text="${purchase.lenses}"></span></li>
+
+        <li>OD sph: <span th:text="${purchase.oculus.odSph}"></span></li>
+        <li>OS sph: <span th:text="${purchase.oculus.osSph}"></span></li>
+        <li>OD cyl: <span th:text="${purchase.oculus.odCyl}"></span></li>
+        <li>OS cyl: <span th:text="${purchase.oculus.osCyl}"></span></li>
+        <li>OD ax: <span th:text="${purchase.oculus.odAx}"></span></li>
+        <li>OS ax: <span th:text="${purchase.oculus.osAx}"></span></li>
+        <li>OD add: <span th:text="${purchase.oculus.odAdd}"></span></li>
+        <li>OS add: <span th:text="${purchase.oculus.osAdd}"></span></li>
+
+        <li>Расстояние: <span th:text="${purchase.oculus.distance}"></span></li>
+        <li>Примечания: <span th:text="${purchase.info}"></span></li>
+        <li>Дата приёма: <span th:text="${purchase.receptionDate}"></span></li>
+        <li>Дата выдачи: <span th:text="${purchase.deliveryDate}"></span></li>
+    </ul>
+
+
+    <!--<select th:field="*{__${field}__}" class="form-control js-example-tags">
+            <option th:selected value="" th:text="''"></option>
+            <option th:each="option : ${__${options}__}" th:value="${option}"
+                    th:text="${option}"></option>
+        </select>-->

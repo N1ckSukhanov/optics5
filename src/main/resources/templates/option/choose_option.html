@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+
+<div th:fragment="choose_option(option, chooseOptions)">
+    <form th:action="@{/options/choose}" th:object="${option}" th:method="POST" class="options-form">
+        <label th:text="${'Свойства'}"></label>
+        <div class="select-container">
+            <select th:field="*{type}" class="choose_option-select">
+                <option th:selected value="" th:text="''">text</option>
+                <option th:each="chooseOption : ${chooseOptions}" th:value="${chooseOption.getType()}"
+                        th:text="${chooseOption.getReadableType()}">chooseOption
+                </option>
+            </select>
+        </div>
+        <button style="margin-top: 20px;" class="search-but">Выбрать</button>
+    </form>
+</div>
+
+</body>
+</html>

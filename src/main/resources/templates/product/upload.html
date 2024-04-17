@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div th:fragment="upload(product, nameOptions, colorOptions, powerOptions, curvatureOptions)">
+
+    <form th:action="@{/products/upload}" th:object="${product}" th:method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button class="search-but">Сохранить</button>
+    </form>
+</div>
+
+</body>
+</html>

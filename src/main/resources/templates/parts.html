@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <title>Input</title>
+</head>
+<body>
+
+<span th:fragment="print_(name, value)">
+    <span th:text="${name}"></span>
+    <span>: </span>
+    <span th:if="*{__${value}__}" th:text="*{__${value}__}"></span>
+    <span th:unless="*{__${value}__}" th:text="'—'"></span>
+</span>
+
+<span th:fragment="print(name, value, cond)">
+    <span th:text="${name}"></span>
+    <span>: </span>
+    <span th:if="${cond}">
+        <span th:text="*{__${value}__}"></span>
+    </span>
+    <span th:unless="${cond}" th:text="'—'"></span>
+</span>
+
+<div th:fragment="field(name, field)">
+    <label th:text="${name}"></label>
+    <input th:id="${name}" th:field="*{__${field}__}" autocomplete="off"/>
+    <br/>
+</div>
+
+<div th:fragment="field_if(name, field, cond)">
+    <div th:if="${cond}">
+        <div th:replace="~{parts :: field(${name}, ${field})}"></div>
+    </div>
+</div>
+
+<div th:fragment="hidden(field, value)">
+    <input type="hidden" th:field="*{__${field}__}" th:value="${value}"/>
+</div>
+
+<div th:fragment="date(name, field)">
+    <label th:text="${name}"></label>
+    <input th:field="*{__${field}__}" type="date"/>
+    <br/>
+</div>
+
+<span th:fragment="select(name, field, options, len)">
+    <label th:style="'width:' + ${len} + 'px;'" th:text="${name}"></label>
+    <input th:list="${name}" th:field="*{__${field}__}" style="width: 50px" autocomplete="off"/>
+    <datalist th:id="${name}">
+        <option th:each="option : ${__${options}__}" th:value="${option}"
+                th:text="${option}"></option>
+    </datalist>
+    <br/>
+</span>
+
+<span th:fragment="field_area(name, field)">
+    <label th:text="${name}"></label>
+    <textarea th:id="${name}" th:field="*{__${field}__}" autocomplete="off"></textarea>
+    <br/>
+</span>
+
+<span th:fragment="select_(name, field, options)">
+    <span th:replace="~{parts :: select(${name}, ${field}, ${options}, '100')}"></span>
+    <br/>
+</span>
+
+</body>
+</html>
