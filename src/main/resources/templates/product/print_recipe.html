@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/print.css}">
+    <link rel="stylesheet" th:href="@{/print2.css}">
     <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
     <title>Print Recipe</title>
 </head>
 <body>
 <div class="print-final-flex">
-    <div th:replace="~{product/print_raw :: left(${product}, ${print})}"></div>
-    <div th:replace="~{product/print_raw :: left(${product}, ${print})}"></div>
+    <div th:replace="~{product/blank :: left(${product}, ${print})}"></div>
+    <div th:replace="~{product/blank :: left(${product}, ${print})}"></div>
 </div>
 </body>
 </html>

@@ -18,6 +18,10 @@ body {
     background-color: #f4e7d0;
 }
 
+input {
+    height: 20px;
+}
+
 /* Header */
 header {
     padding: 15px 15px 30px 15px;
