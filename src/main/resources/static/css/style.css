@@ -27,7 +27,7 @@ header {
     padding: 15px 15px 30px 15px;
     position: sticky;
     top: 0;
-    background: url('img/bg/header_bg.jpg') no-repeat;
+    background: url('../img/bg/header_bg.jpg') no-repeat;
     background-size: cover;
     color: #fff;
 }
@@ -150,7 +150,7 @@ header {
 /* Sidebar */
 aside {
     width: 233px;
-    background-image: url("img/bg/sidebar_bg.jpg");
+    background-image: url("../img/bg/sidebar_bg.jpg");
 }
 
 aside > ul {
