@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  optics:
+    container_name: optics
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+
+networks:
+  springboot-mysql-net:
+
