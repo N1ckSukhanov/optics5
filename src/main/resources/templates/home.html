@@ -112,6 +112,10 @@
         <div th:if="${appState.equals(appState.NEW_OPTION)}">
             <div th:replace="~{option/new_option :: new_option(${option}, ${currentOption}, ${addedOptions})}"></div>
         </div>
+
+        <div th:if="${appState.equals(appState.UPLOAD)}">
+            <div th:replace="~{product/upload :: upload()}"></div>
+        </div>
     </main>
 </div>
 </body>

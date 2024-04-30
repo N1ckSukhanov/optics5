@@ -35,7 +35,8 @@ public class ProductController {
 
     @GetMapping("/upload")
     public String uploadPage() {
-        return "product/upload";
+        appService.setAppState(AppState.UPLOAD);
+        return HOME;
     }
 
     @PostMapping("/upload")
@@ -72,7 +73,7 @@ public class ProductController {
         model.addAttribute("product", (Recipe) productService.getProductById(id));
         model.addAttribute("customer", customerService.getCurrent());
         model.addAttribute("print", new Print());
-        return "product/print_recipe";
+        return "print/print_recipe";
     }
 
     @GetMapping("/edit/{id}")

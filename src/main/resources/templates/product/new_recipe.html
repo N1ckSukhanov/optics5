@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="new_recipe.css">
+
 <body>
 <div
         th:fragment="recipe(product, current, ratioOptions,
@@ -85,13 +83,5 @@
     </form>
 </div>
 </body>
-<script th:src="@{/js/input.js}"></script>
-<script th:src="@{/js/calculate_recipe.js}"></script>
-<script th:src="@{/js/validation.js}"></script>
-<script th:src="@{/js/check_num.js}"></script>
-<script>
-    $(".js-example-tags").select2({
-        tags: true
-    });
-</script>
+
 </html>

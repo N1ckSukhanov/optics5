@@ -11,5 +11,6 @@ public enum AppState {
     CHOOSE_OPTION,
     NEW_OPTION,
     CUSTOMER_FROM_RECIPE,
-    NOT_FOUND
+    NOT_FOUND,
+    UPLOAD
 }
