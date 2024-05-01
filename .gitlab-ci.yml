@@ -18,11 +18,17 @@ build docker:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
   script:
-#    - unset DOCKER_HOST
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
     - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
   tags:
-#    - docker-2
-    - gitlab-org-docker
+    - docker-2
+#    - gitlab-org-docker
 
+deploy to prod:
+  stage: deploy
+  script:
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker pull ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker rm -f ${CI_PROJECT_NAME}
+    - docker run -d --name ${CI_PROJECT_NAME} -p 80:8080 ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
