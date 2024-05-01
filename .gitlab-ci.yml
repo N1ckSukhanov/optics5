@@ -9,20 +9,20 @@ default:
     - docker info
 
 
-#build docker:
-#  image: docker:stable
-#  stage: build
-#  services:
-#    - docker:dind
-#  variables:
-#    DOCKER_HOST: tcp://docker:2375
-#    DOCKER_TLS_CERTDIR: ""
-#  script:
-#    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-#    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
-#    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
-#  tags:
-#    - docker-2
+build docker:
+  image: docker:stable
+  stage: build
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker build -t optics . #${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
+    - docker push optics #${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+  tags:
+    - docker-2
 #    - gitlab-org-docker
 
 
@@ -36,8 +36,8 @@ deploy to prod:
     - docker:dind
   script:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - docker pull ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker pull optics # ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
     - docker rm -f ${CI_PROJECT_NAME} || true
-    - docker run -d --name ${CI_PROJECT_NAME} -p 80:8080 ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker run -d --name ${CI_PROJECT_NAME} -p 80:8080 optics # ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
   tags:
     - docker-2
