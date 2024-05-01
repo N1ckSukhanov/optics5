@@ -1,0 +1,14 @@
+stages:
+  - lint
+  - build
+  - test
+  - deploy
+
+build docker:
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} registry.gitlab.com
+    - docker build -t registry.gitlab.com/nicksukhanov/optics .
+    - docker push registry.gitlab.com/nicksukhanov/optics
+  tags:
+    - yandex-sudo
