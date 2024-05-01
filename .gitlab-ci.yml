@@ -12,3 +12,4 @@ build docker:
     - docker push registry.gitlab.com/nicksukhanov/optics
   tags:
     - yandex-sudo
+
