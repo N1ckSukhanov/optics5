@@ -19,8 +19,8 @@ build docker:
     DOCKER_TLS_CERTDIR: ""
   script:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - docker build -t optics . #${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
-    - docker push optics #${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker build -t optics:latest . #${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
+    - docker push optics:latest #${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
   tags:
     - docker-2
 #    - gitlab-org-docker
@@ -36,8 +36,8 @@ deploy to prod:
     - docker:dind
   script:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - docker pull optics # ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker pull optics:latest # ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
     - docker rm -f ${CI_PROJECT_NAME} || true
-    - docker run -d --name ${CI_PROJECT_NAME} -p 80:8080 optics # ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker run -d --name ${CI_PROJECT_NAME} -p 80:8080 optics:latest # ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
   tags:
     - docker-2
