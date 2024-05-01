@@ -8,6 +8,7 @@ default:
   before_script:
     - docker info
 
+
 build docker:
   image: docker:stable
   stage: build
