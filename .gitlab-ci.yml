@@ -25,6 +25,7 @@ default:
 #    - docker-2
 #    - gitlab-org-docker
 
+
 deploy to prod:
   stage: deploy
   image: docker:stable
