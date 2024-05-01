@@ -5,12 +5,7 @@ stages:
   - deploy
 
 build docker:
-  image: docker:stable
   stage: build
-  services:
-    - docker:dind
-  variables:
-    DOCKER_HOST: tcp://docker:2375
   script:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
