@@ -1,0 +1,38 @@
+stages:
+  - lint
+  - build
+  - test
+  - deploy
+
+default:
+  before_script:
+    - docker info
+
+
+build docker:
+  image: docker:stable
+  stage: build
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - echo ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+  tags:
+    - gitlab-org-docker
+
+
+deploy to prod:
+  stage: deploy
+#  needs: ["build docker"]
+  script:
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker pull ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker rm -f ${CI_PROJECT_NAME} || true
+    - docker run -d --name ${CI_PROJECT_NAME} -p 8080:8080 ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+  tags:
+    - shell-2
