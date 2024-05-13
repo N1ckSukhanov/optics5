@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" th:href="@{/css/print.css}">
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <title>Print</title>
+</head>
+<body>
+<div class="n-container">
+    <div th:replace="~{print/side :: side(${product}, ${print})}"></div>
+    <div th:replace="~{print/side :: side(${product}, ${print})}"></div>
+</div>
+</body>
+</html>

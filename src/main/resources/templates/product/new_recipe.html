@@ -3,7 +3,7 @@
 
 <body>
 <div
-        th:fragment="recipe(product, current, ratioOptions,
+        th:fragment="recipe(product, current, options, ratioOptions,
         coverageOptions, geometryOptions,
         sphOptions, cylOptions, axOptions, addOptions, distOptions)"
 >
@@ -36,26 +36,26 @@
         <div>
             <h4>Линзы</h4>
             <div class="new-recipe-flex">
-                <div th:replace="~{parts :: select_('Коэфф.', ratio, ratioOptions)}">Коэфф.</div>
-                <div th:replace="~{parts :: select_('Покрытие', coverage, coverageOptions)}">Покрытие</div>
-                <div th:replace="~{parts :: select_('Геометрия', geometry, geometryOptions)}">Геометрия</div>
+                <div th:replace="~{parts :: select_('Коэфф.', ratio, ${options.ratio})}">Коэфф.</div>
+                <div th:replace="~{parts :: select_('Покрытие', coverage, ${options.coverage})}">Покрытие</div>
+                <div th:replace="~{parts :: select_('Геометрия', geometry, ${options.geometry})}">Геометрия</div>
                 <div class="lenses-flex">
-                    <div th:replace="~{parts :: select('OD sph', 'oculus.odSph', sphOptions, 60)}">OD sph</div>
-                    <div th:replace="~{parts :: select('cyl', 'oculus.odCyl', cylOptions, 30)}">cyl</div>
-                    <div th:replace="~{parts :: select('ax', 'oculus.odAx', axOptions, 30)}">ax</div>
-                    <div th:replace="~{parts :: select('add', 'oculus.odAdd', addOptions, 30)}">add</div>
+                    <div th:replace="~{parts :: select('OD sph', 'oculus.odSph', ${options.sph}, 60)}">OD sph</div>
+                    <div th:replace="~{parts :: select('cyl', 'oculus.odCyl', ${options.cyl}, 30)}">cyl</div>
+                    <div th:replace="~{parts :: select('ax', 'oculus.odAx', ${options.ax}, 30)}">ax</div>
+                    <div th:replace="~{parts :: select('add', 'oculus.odAdd', ${options.add}, 30)}">add</div>
                 </div>
                 <div class="lenses-flex">
-                    <div th:replace="~{parts :: select('OS sph', 'oculus.osSph', sphOptions, 60)}">OS sph</div>
-                    <div th:replace="~{parts :: select('cyl', 'oculus.osCyl', cylOptions, 30)}">cyl</div>
-                    <div th:replace="~{parts :: select('ax', 'oculus.osAx', axOptions, 30)}">ax</div>
-                    <div th:replace="~{parts :: select('add', 'oculus.osAdd', addOptions, 30)}">add</div>
+                    <div th:replace="~{parts :: select('OS sph', 'oculus.osSph', ${options.sph}, 60)}">OS sph</div>
+                    <div th:replace="~{parts :: select('cyl', 'oculus.osCyl', ${options.cyl}, 30)}">cyl</div>
+                    <div th:replace="~{parts :: select('ax', 'oculus.osAx', ${options.ax}, 30)}">ax</div>
+                    <div th:replace="~{parts :: select('add', 'oculus.osAdd', ${options.add}, 30)}">add</div>
                 </div>
             </div>
         </div>
         <div class="new-recipe-flex">
             <div th:replace="~{parts :: field('Рецепт', fromWho)}">Чей Рецепт</div>
-            <div th:replace="~{parts :: select_('РЦ', 'distance', distOptions)}">РЦ</div>
+            <div th:replace="~{parts :: select_('РЦ', 'distance', ${options.dist})}">РЦ</div>
             <div th:replace="~{parts :: field_area('Примечания', info)}">Примечания</div>
             <div th:replace="~{parts :: date('Дата приёма', receptionDate)}">Дата приёма</div>
             <div th:replace="~{parts :: date('Дата выдачи', deliveryDate)}">Дата выдачи</div>

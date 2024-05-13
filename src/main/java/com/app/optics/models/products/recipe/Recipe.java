@@ -104,9 +104,7 @@ public class Recipe extends Product {
     }
 
     public void setDiscountFromOthers(){
-        if (cost == null)
-            return;
-        if (cost.getTotal() == null || cost.getSum() == null)
+        if (cost == null || cost.getTotal() == null || cost.getSum() == null)
             return;
         cost.setDiscount(cost.getSum() - cost.getTotal());
     }

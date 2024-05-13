@@ -12,10 +12,7 @@ import static com.app.optics.util.ObjectConverter.*;
 @NoArgsConstructor
 public class Oculus {
     @Id
-//    @SequenceGenerator(name = "oculus_seq", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "oculus_seq")
     private Integer id;
-    //    @OneToOne(mappedBy = "oculus")
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")

@@ -49,7 +49,7 @@
     <label th:style="'width:' + ${len} + 'px;'" th:text="${name}"></label>
     <input th:list="${name}" th:field="*{__${field}__}" style="width: 50px" autocomplete="off"/>
     <datalist th:id="${name}">
-        <option th:each="option : ${__${options}__}" th:value="${option}"
+        <option th:each="option : ${options}" th:value="${option}"
                 th:text="${option}"></option>
     </datalist>
     <br/>

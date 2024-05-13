@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<div th:fragment="part(product, print)"
+    class="n-border">
+  <div class="n-top">
+    <div class="n-top-item">
+      <div class="n-top-logo">
+        <img th:src="@{/img/look_optics.png}" alt="logo"/>
+      </div>
+      <div class="n-top-contact">
+        <div class="n-contact-item">
+          <img th:src="@{/img/icons/iconInst.png}" alt="icon"/>
+          <p>t.me/lukoptika</p>
+        </div>
+        <div class="n-contact-item">
+          <img th:src="@{/img/icons/iconsMail.png}" alt="icon"/>
+          <p>www.lukoptika.ru</p>
+        </div>
+      </div>
+    </div>
+    <table class="n-table">
+      <tr>
+        <td class="column1 n-column1 no-border">
+          <span class="n-span n-span-top">Тел:</span>
+          <span class="n-price n-indent">+7 977 888 77 66</span>
+          № заказа
+          <span th:text="${print.get(product.orderId)}" class="n-price n-top-price">88888</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="column1 no-border">
+          <div class="content-wrapper">
+            ФИО клиента
+            <span th:if="${customer}" th:text="${print.get(customer.name)}" class="n-price"></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="column1 no-border">
+          <div class="content-wrapper">
+            Для кого
+            <span th:if="${customer}" th:text="${print.get(product.forWho)}" class="n-price"></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!---->
+  <table class="n-table">
+    <tr>
+      <td class="column1">
+        <div class="content-wrapper">
+          Контактный телефон
+          <span th:if="${customer}" th:text="${print.get(customer.phone)}" class="n-price"></span>
+        </div>
+      </td>
+      <td class="column2 n-bold">СТОИМОСТЬ</td>
+    </tr>
+    <tr>
+      <td class="column1">
+        <div class="content-wrapper">
+          Оправа
+          <span th:text="${print.get(product.frame)}" class="n-price">Своя</span>
+        </div>
+      </td>
+      <td class="column2">
+        <div class="content-wrapper">
+          оправа
+          <span th:text="${print.get(product.cost.frame)}" class="n-price">4000</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="column1">
+        <div class="content-wrapper">
+          Линзы
+          <span
+              th:text="${print.get(product.ratio)} + '  ' + ${print.get(product.coverage)} + '  ' + ${print.get(product.geometry)}"
+              class="n-price">4000</span>
+        </div>
+      </td>
+      <td class="column2">
+        <div class="content-wrapper">
+          линзы
+          <span th:text="${print.get(product.cost.lenses)}" class="n-price">4000</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="column1">
+        <div class="content-wrapper">
+          &#160;
+          <span class="n-price"></span>
+        </div>
+      </td>
+      <td class="column2">
+        <div class="content-wrapper">
+          работа
+          <span th:text="${print.get(product.cost.work)}" class="n-price"> 4000</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="column1">
+        OD sph
+        <span th:text="${print.get_plus(product.oculus.getOdSph)}" class="n-price">222</span>
+        cyl
+        <span th:text="${print.get_plus(product.oculus.getOdCyl)}" class="n-price">222</span>
+        ax
+        <span th:text="${print.get(product.oculus.getOdAx)}" class="n-price">222</span>
+        <span class="n-end">
+                  рц
+                  <span th:text="${print.get(product.distance)}" class="n-price">2222</span>
+                </span>
+      </td>
+      <td class="column2">
+        <div class="content-wrapper">
+          сумма
+          <span th:text="${print.get(product.cost.sum)}" class="n-price">4000</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="column1">
+        OS sph
+        <span th:text="${print.get_plus(product.oculus.osSph)}" class="n-price">4000</span>
+        cyl
+        <span th:text="${print.get_plus(product.oculus.osCyl)}" class="n-price">4000</span>
+        ax
+        <span th:text="${print.get(product.oculus.osAx)}" class="n-price">4000</span>
+      </td>
+      <td class="column2">
+        <div class="content-wrapper">
+          скидка
+          <span th:text="${print.get(product.cost.discount)}" class="n-price"></span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="column1">
+        <div class="content-wrapper">
+          Примечание
+          <span th:text="${print.get(product.fromWho)}" class="n-price">400</span>
+        </div>
+      </td>
+      <td class="column2">
+        <div class="content-wrapper n-bold">
+          Итого
+          <span th:text="${print.get(product.cost.total)}" class="n-price">4000</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="column1">
+        <div class="content-wrapper">
+          Дата приема
+          <span th:text="${print.get(product.deliveryDate)}" class="n-price">4000</span>
+        </div>
+      </td>
+      <td class="column2">
+        <div class="content-wrapper">
+          оплачено
+          <span th:text="${print.get(product.cost.paid)}" class="n-price">4000</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="column1">
+        <div class="content-wrapper">
+          Дата выдачи
+          <span th:text="${print.get(product.receptionDate)}" class="n-price">4000</span>
+        </div>
+      </td>
+      <td class="column2">
+        <div class="content-wrapper">
+          доплата
+          <span th:text="${print.get(product.cost.extra)}" class="n-price">4000</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="column1">
+        <div class="content-wrapper">&#160;</div>
+      </td>
+      <td class="column2">
+        <div class="content-wrapper">&#160;</div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

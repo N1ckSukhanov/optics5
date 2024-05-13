@@ -8,4 +8,8 @@ import org.springframework.stereotype.Service;
 @Data
 public class AppService {
     AppState appState = AppState.PRODUCTS;
+
+    public String getModelAppState(){
+        return appState.toString().toLowerCase();
+    }
 }

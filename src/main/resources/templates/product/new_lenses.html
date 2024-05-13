@@ -8,10 +8,10 @@
 
     <form th:action="@{/products/lenses}" th:object="${product}" th:method="POST" class="new_lenses_form">
         <div th:replace="~{parts :: hidden(id, ${product.getId()})}"></div>
-        <div th:replace="~{parts :: select_('Название', name, nameOptions)}"></div>
-        <div th:replace="~{parts :: select_('Оптич. сила', power, powerOptions)}"></div>
-        <div th:replace="~{parts :: select_('Кривизна', curvature, curvatureOptions)}"></div>
-        <div th:replace="~{parts :: select_('Цвет', color, colorOptions)}"></div>
+        <div th:replace="~{parts :: select_('Название', name, ${options.name})}"></div>
+        <div th:replace="~{parts :: select_('Оптич. сила', power, ${options.power})}"></div>
+        <div th:replace="~{parts :: select_('Кривизна', curvature, ${options.curvature})}"></div>
+        <div th:replace="~{parts :: select_('Цвет', color, ${options.color})}"></div>
         <div th:replace="~{parts :: field('Цена', price)}"></div>
         <button style="margin-top: 20px;" class="search-but">Сохранить</button>
     </form>

@@ -4,8 +4,7 @@ import com.app.optics.models.OptionType;
 import com.app.optics.models.products.*;
 import com.app.optics.models.products.recipe.Recipe;
 import com.app.optics.repositories.OptionRepository;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -77,23 +76,58 @@ public class OptionService {
         return findAllByType(type).stream().map(Option::getName).toList();
     }
 
-    public void getRecipeOptions(Model model) {
-        model.addAttribute("ratioOptions", findNamesByOptionType(OptionType.RECIPE_RATIO))
-                .addAttribute("coverageOptions", findNamesByOptionType(OptionType.RECIPE_COVERAGE))
-                .addAttribute("geometryOptions", findNamesByOptionType(OptionType.RECIPE_GEOMETRY))
-                .addAttribute("sphOptions", getOptions(0.0, -15.0, 0.25, 15.0, 0.25, 2, true))
-                .addAttribute("cylOptions", getOptions(0.0, -6.0, 0.25, 6.0, 0.25, 2, true))
-                .addAttribute("axOptions", getOptions(0, 180, 1, 0, false))
-                .addAttribute("addOptions", getOptions(0.0, 4.0, 0.25, 2, false))
-                .addAttribute("distOptions", getOptions(40, 78, 1, 0, false))
-                .addAttribute("discount", discountService.getCustomerDiscount(customerService.getCurrent()));
+    @AllArgsConstructor
+    @Builder
+    @NoArgsConstructor
+    static
+    class RecipeOptions {
+        public List<String> ratio;
+        public List<String> coverage;
+        public List<String> geometry;
+        public List<String> sph;
+        public List<String> cyl;
+        public List<String> ax;
+        public List<String> add;
+        public List<String> dist;
     }
 
+    public void getRecipeOptions(Model model) {
+        RecipeOptions options = RecipeOptions.builder()
+                .ratio(findNamesByOptionType(OptionType.RECIPE_RATIO))
+                .coverage(findNamesByOptionType(OptionType.RECIPE_COVERAGE))
+                .geometry(findNamesByOptionType(OptionType.RECIPE_GEOMETRY))
+                .sph(getOptions(0.0, -15.0, 0.25, 15.0, 0.25, 2, true))
+                .cyl(getOptions(0.0, -6.0, 0.25, 6.0, 0.25, 2, true))
+                .ax(getOptions(0, 180, 1, 0, false))
+                .add(getOptions(0.0, 4.0, 0.25, 2, false))
+                .dist(getOptions(40, 78, 1, 0, false))
+                .build();
+
+        model.addAttribute("options", options);
+        model.addAttribute("discount", discountService.getCustomerDiscount(customerService.getCurrent()));
+    }
+
+    @AllArgsConstructor
+    @Builder
+    @NoArgsConstructor
+    static
+    class LensesOptions {
+        public List<String> name;
+        public List<String> color;
+        public List<String> power;
+        public List<String> curvature;
+    }
+
+
     public void getLensesOptions(Model model) {
-        model.addAttribute("nameOptions", findNamesByOptionType(OptionType.LENSES_NAME))
-                .addAttribute("colorOptions", findNamesByOptionType(OptionType.LENSES_COLOR))
-                .addAttribute("powerOptions", getOptions(0.0, -15.0, 0.25, 2, false))
-                .addAttribute("curvatureOptions", getOptions(8.2, 9.0, 0.1, 1, false));
+        LensesOptions options = LensesOptions.builder()
+                .name(findNamesByOptionType(OptionType.LENSES_NAME))
+                .color(findNamesByOptionType(OptionType.LENSES_COLOR))
+                .power(getOptions(0.0, -15.0, 0.25, 2, false))
+                .curvature(getOptions(8.2, 9.0, 0.1, 1, false))
+                .build();
+
+        model.addAttribute("options", options);
     }
 
     private List<String> getOptions(double start1, double finish1, double start2, double finish2, double step, double round, boolean setSign) {

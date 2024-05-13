@@ -73,7 +73,7 @@ public class ProductController {
         model.addAttribute("product", (Recipe) productService.getProductById(id));
         model.addAttribute("customer", customerService.getCurrent());
         model.addAttribute("print", new Print());
-        return "print/print_recipe";
+        return "print/all";
     }
 
     @GetMapping("/edit/{id}")

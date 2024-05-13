@@ -87,11 +87,17 @@ public class ProductService {
             openedProducts.add(id);
     }
 
+
     @Transactional
     public void putProduct(Product product) {
         if (customerService.isCurrent() && product.getCustomerId() == null) {
-            product.setCustomerId(customerService.getCurrentId());
+            Integer customerId = customerService.getCurrentId();
+            product.setCustomerId(customerId);
+            product.setSerialNumber(recipeRepository.findByCustomerId(customerId).size()
+                    + photoRepository.findByCustomerId(customerId).size() + 1);
+            System.out.println("product.getSerialNumber() = " + product.getSerialNumber());
         }
+
         switch (product.getProductType()) {
             case RECIPE -> recipeRepository.save((Recipe) product);
             case LENSES -> lensesRepository.save((Lenses) product);

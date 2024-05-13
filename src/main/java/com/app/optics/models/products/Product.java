@@ -39,6 +39,8 @@ public class Product implements Comparable<Product> {
     @Transient
     protected Boolean opened = false;
 
+    protected Integer serialNumber;
+
     public Product(ProductType productType) {
         this.productType = productType;
     }

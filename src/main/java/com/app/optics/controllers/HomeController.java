@@ -85,7 +85,7 @@ public class HomeController {
             }
         }
 
-        model.addAttribute("appState", appService.getAppState());
+        model.addAttribute("appState", appService.getModelAppState());
 
         return "home";
     }

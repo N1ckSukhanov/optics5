@@ -12,10 +12,7 @@ import static com.app.optics.util.ObjectConverter.str;
 @NoArgsConstructor
 public class Cost {
     @Id
-//    @SequenceGenerator(name = "cost_seq", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cost_seq")
     private Integer id;
-    //    @OneToOne(mappedBy = "cost")
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
@@ -28,17 +25,6 @@ public class Cost {
     private Integer total;
     private Integer paid;
     private Integer extra;
-
-    public Cost(Integer frame, Integer lenses, Integer work, Integer sum, Integer discount, Integer total, Integer paid, Integer extra) {
-        this.frame = frame;
-        this.lenses = lenses;
-        this.work = work;
-        this.sum = sum;
-        this.discount = discount;
-        this.total = total;
-        this.paid = paid;
-        this.extra = extra;
-    }
 
     @Override
     public String toString() {
