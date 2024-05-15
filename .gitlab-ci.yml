@@ -5,9 +5,7 @@ stages:
   - deploy
 
 
-build docker:
-  before_script:
-    - docker info
+build maven:
   image: docker:stable
   stage: build
   services:
@@ -18,8 +16,34 @@ build docker:
   script:
     - echo ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
-    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker build -t ${CI_REGISTRY_IMAGE}/my_maven:${CI_COMMIT_REF_SLUG} -f my-maven .
+    - docker push ${CI_REGISTRY_IMAGE}/my_maven:${CI_COMMIT_REF_SLUG}
+  tags:
+    - gitlab-org-docker
+  only:
+    changes:
+      - mvnw
+      - mvnw.cmd
+      - pom.xml
+
+
+build spring:
+  image: docker:stable
+  stage: build
+  needs:
+    - job: build maven
+      optional: true
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - echo ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker build --build-arg my_maven=${CI_REGISTRY_IMAGE}/my_maven:${CI_COMMIT_REF_SLUG} 
+                   -t ${CI_REGISTRY_IMAGE}/spring:${CI_COMMIT_REF_SLUG} .
+    - docker push ${CI_REGISTRY_IMAGE}/spring:${CI_COMMIT_REF_SLUG}
   tags:
     - gitlab-org-docker
   only:
@@ -28,7 +52,9 @@ build docker:
 
 deploy to prod:
   stage: deploy
-#  needs: ["build docker"]
+  needs:
+    - job: build spring
+      optional: true
   script:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker pull ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}

@@ -1,20 +1,14 @@
 #FROM amazoncorretto:21
-#
 #WORKDIR /app
-#
 #COPY .mvn/ .mvn
 #COPY mvnw pom.xml ./
 #RUN ./mvnw dependency:go-offline
-#
 #COPY src ./src
-#
 #CMD ["./mvnw", "spring-boot:run"]
 
-FROM maven:3.9.6-eclipse-temurin-21-alpine
-WORKDIR /opt/app
-COPY .mvn .mvn
-COPY pom.xml mvnw ./
-RUN mvn dependency:resolve
+ARG my_maven
+
+FROM ${my_maven}
 COPY ./src ./src
 RUN mvn clean
 RUN mvn package
