@@ -22,8 +22,6 @@ build maven:
     - gitlab-org-docker
   only:
     changes:
-      - mvnw
-      - mvnw.cmd
       - pom.xml
 
 
@@ -49,6 +47,7 @@ build spring:
   only:
     changes:
       - src/**/*
+      - pom.xml
 
 deploy to prod:
   stage: deploy
