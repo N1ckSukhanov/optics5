@@ -87,7 +87,7 @@ public class HomeController {
 
         model.addAttribute("appState", appService.getModelAppState());
 
-        return "home";
+        return "main/home";
     }
 
 }
