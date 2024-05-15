@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<header th:replace="~{main/head :: head(${current}, ${search})}"></header>
+<header th:replace="~{main/head :: bit(${current}, ${search})}"></header>
 <!-- Website page - with sidebar on the left side and content on the right -->
 <div class="page">
   <aside th:replace="~{main/sidebar :: bit()}"></aside>
