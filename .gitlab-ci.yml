@@ -4,7 +4,6 @@ stages:
   - test
   - deploy
 
-
 build docker:
   before_script:
     - docker info
