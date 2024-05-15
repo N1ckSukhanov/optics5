@@ -4,8 +4,6 @@ stages:
   - test
   - deploy
 
-
-
 build docker:
   before_script:
     - docker info
@@ -23,7 +21,6 @@ build docker:
     - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
   tags:
     - gitlab-org-docker
-
 
 deploy to prod:
   stage: deploy
