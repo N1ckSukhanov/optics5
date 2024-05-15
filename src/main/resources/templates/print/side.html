@@ -2,7 +2,7 @@
 <html lang="en">
 <body>
 
-<div th:fragment="side(${product}, ${print})"
+<div th:fragment="bit(${product}, ${print})"
      class="n-wrapp">
   <!-- Заменяем фрагмент с заказом из файла part.html -->
   <div th:replace="~{print/part :: part(${product}, ${print})}"></div>

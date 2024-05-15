@@ -3,7 +3,7 @@
 <html lang="en">
 <body>
 
-<div th:fragment="choose_option(option, chooseOptions)">
+<div th:fragment="bit(option, chooseOptions)">
   <form th:action="@{/options/choose}" th:object="${option}" th:method="POST" class="options-form">
     <label th:text="${'Свойства'}"></label>
     <div class="select-container">

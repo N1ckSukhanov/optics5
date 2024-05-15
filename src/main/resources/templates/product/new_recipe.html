@@ -2,11 +2,7 @@
 <html lang="en">
 
 <body>
-<div
-        th:fragment="recipe(product, current, options, ratioOptions,
-        coverageOptions, geometryOptions,
-        sphOptions, cylOptions, axOptions, addOptions, distOptions)"
->
+<div th:fragment="bit(product, current, options)">
     <div class="product-header">
         <h3 th:text="${product.productHeader()}">Заказ на очки</h3>
     </div>
@@ -22,59 +18,59 @@
             <button class="search-but">Сохранить</button>
         </div>
         <div class="new-recipe-flex">
-            <div th:replace="~{parts :: hidden(id, ${product.getId()})}"></div>
-            <div th:replace="~{parts :: hidden('oculus.id', ${product.getOculus().getId()})}"></div>
-            <div th:replace="~{parts :: hidden('cost.id', ${product.getCost().getId()})}"></div>
+            <div th:replace="~{p :: hidden(id, ${product.getId()})}"></div>
+            <div th:replace="~{p :: hidden('oculus.id', ${product.getOculus().getId()})}"></div>
+            <div th:replace="~{p :: hidden('cost.id', ${product.getCost().getId()})}"></div>
 
-            <div th:replace="~{parts :: field_if('Имя', customerName, ${current == null})}">Имя</div>
-            <div th:replace="~{parts :: field_if('Телефон', customerPhone, ${current == null})}">Телефон</div>
+            <div th:replace="~{p :: field_if('Имя', customerName, ${current == null})}">Имя</div>
+            <div th:replace="~{p :: field_if('Телефон', customerPhone, ${current == null})}">Телефон</div>
 
-            <div th:replace="~{parts :: field('Номер заказа', orderId)}">Номер заказа</div>
-            <div th:replace="~{parts :: field('Для кого', forWho)}">Для кого</div>
-            <div th:replace="~{parts :: field('Оправа ', frame)}">Оправа</div>
+            <div th:replace="~{p :: field('Номер заказа', orderId)}">Номер заказа</div>
+            <div th:replace="~{p :: field('Для кого', forWho)}">Для кого</div>
+            <div th:replace="~{p :: field('Оправа ', frame)}">Оправа</div>
         </div>
         <div>
             <h4>Линзы</h4>
             <div class="new-recipe-flex">
-                <div th:replace="~{parts :: select_('Коэфф.', ratio, ${options.ratio})}">Коэфф.</div>
-                <div th:replace="~{parts :: select_('Покрытие', coverage, ${options.coverage})}">Покрытие</div>
-                <div th:replace="~{parts :: select_('Геометрия', geometry, ${options.geometry})}">Геометрия</div>
+                <div th:replace="~{p :: select_('Коэфф.', ratio, ${options.ratio})}">Коэфф.</div>
+                <div th:replace="~{p :: select_('Покрытие', coverage, ${options.coverage})}">Покрытие</div>
+                <div th:replace="~{p :: select_('Геометрия', geometry, ${options.geometry})}">Геометрия</div>
                 <div class="lenses-flex">
-                    <div th:replace="~{parts :: select('OD sph', 'oculus.odSph', ${options.sph}, 60)}">OD sph</div>
-                    <div th:replace="~{parts :: select('cyl', 'oculus.odCyl', ${options.cyl}, 30)}">cyl</div>
-                    <div th:replace="~{parts :: select('ax', 'oculus.odAx', ${options.ax}, 30)}">ax</div>
-                    <div th:replace="~{parts :: select('add', 'oculus.odAdd', ${options.add}, 30)}">add</div>
+                    <div th:replace="~{p :: select('OD sph', 'oculus.odSph', ${options.sph}, 60)}">OD sph</div>
+                    <div th:replace="~{p :: select('cyl', 'oculus.odCyl', ${options.cyl}, 30)}">cyl</div>
+                    <div th:replace="~{p :: select('ax', 'oculus.odAx', ${options.ax}, 30)}">ax</div>
+                    <div th:replace="~{p :: select('add', 'oculus.odAdd', ${options.add}, 30)}">add</div>
                 </div>
                 <div class="lenses-flex">
-                    <div th:replace="~{parts :: select('OS sph', 'oculus.osSph', ${options.sph}, 60)}">OS sph</div>
-                    <div th:replace="~{parts :: select('cyl', 'oculus.osCyl', ${options.cyl}, 30)}">cyl</div>
-                    <div th:replace="~{parts :: select('ax', 'oculus.osAx', ${options.ax}, 30)}">ax</div>
-                    <div th:replace="~{parts :: select('add', 'oculus.osAdd', ${options.add}, 30)}">add</div>
+                    <div th:replace="~{p :: select('OS sph', 'oculus.osSph', ${options.sph}, 60)}">OS sph</div>
+                    <div th:replace="~{p :: select('cyl', 'oculus.osCyl', ${options.cyl}, 30)}">cyl</div>
+                    <div th:replace="~{p :: select('ax', 'oculus.osAx', ${options.ax}, 30)}">ax</div>
+                    <div th:replace="~{p :: select('add', 'oculus.osAdd', ${options.add}, 30)}">add</div>
                 </div>
             </div>
         </div>
         <div class="new-recipe-flex">
-            <div th:replace="~{parts :: field('Рецепт', fromWho)}">Чей Рецепт</div>
-            <div th:replace="~{parts :: select_('РЦ', 'distance', ${options.dist})}">РЦ</div>
-            <div th:replace="~{parts :: field_area('Примечания', info)}">Примечания</div>
-            <div th:replace="~{parts :: date('Дата приёма', receptionDate)}">Дата приёма</div>
-            <div th:replace="~{parts :: date('Дата выдачи', deliveryDate)}">Дата выдачи</div>
+            <div th:replace="~{p :: field('Рецепт', fromWho)}">Чей Рецепт</div>
+            <div th:replace="~{p :: select_('РЦ', 'distance', ${options.dist})}">РЦ</div>
+            <div th:replace="~{p :: field_area('Примечания', info)}">Примечания</div>
+            <div th:replace="~{p :: date('Дата приёма', receptionDate)}">Дата приёма</div>
+            <div th:replace="~{p :: date('Дата выдачи', deliveryDate)}">Дата выдачи</div>
         </div>
         <div>
             <h4>Стоимость</h4>
             <div class="new-recipe-flex">
-                <div th:replace="~{parts :: field('Оправа', 'cost.frame')}">Оправа</div>
-                <div th:replace="~{parts :: field('Линзы', 'cost.lenses')}">Линзы</div>
-                <div th:replace="~{parts :: field('Работа', 'cost.work')}">Работа</div>
-                <div th:replace="~{parts :: field('Сумма', 'cost.sum')}">Сумма</div>
+                <div th:replace="~{p :: field('Оправа', 'cost.frame')}">Оправа</div>
+                <div th:replace="~{p :: field('Линзы', 'cost.lenses')}">Линзы</div>
+                <div th:replace="~{p :: field('Работа', 'cost.work')}">Работа</div>
+                <div th:replace="~{p :: field('Сумма', 'cost.sum')}">Сумма</div>
                 <div>
                     <label th:text="Скидка"></label>
                     <span th:id="Скидка" th:text="${discount}" th:value="${discount}"></span><span>%</span>
                     <!--                        <input th:id="Скидка" th:value="${discount}" style="text-align:center;" autocomplete="off" disabled/><br/>-->
                 </div>
-                <div th:replace="~{parts :: field('Итого', 'cost.total')}">Итого</div>
-                <div th:replace="~{parts :: field('Оплачено', 'cost.paid')}">Оплачено</div>
-                <div th:replace="~{parts :: field('Доплата', 'cost.extra')}">Доплата</div>
+                <div th:replace="~{p :: field('Итого', 'cost.total')}">Итого</div>
+                <div th:replace="~{p :: field('Оплачено', 'cost.paid')}">Оплачено</div>
+                <div th:replace="~{p :: field('Доплата', 'cost.extra')}">Доплата</div>
             </div>
         </div>
         <div>

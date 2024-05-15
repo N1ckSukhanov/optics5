@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<header th:fragment="bit(current, search)">
+  <form class="search-form" th:method="GET" th:action="@{/static}">
+    <label class="search-label">Поиск</label>
+    <input class="search" th:id="search" th:name="search" th:value="${search}" placeholder="Телефон / Имя"
+           autocomplete="off"/>
+    <button class="search-btn">Найти</button>
+  </form>
+  <div class="hedaer-gui-container">
+    <div class="header-gui">
+      <div class="left-block">
+        <div th:if="${current != null}">
+          <span th:text="'Выбран клиент ' + ${current.name} + ' - ' + ${current.phone}"></span>
+        </div>
+        <div th:if="${current == null}">
+          <span>Клиент ещё не выбран</span>
+        </div>
+      </div>
+      <div class="right-block">
+        <div th:if="${current != null}">
+                        <span class="header-btn">
+                            <a href="/customers/clear_choose">Сменить Клиента</a>
+                        </span>
+        </div>
+        <div th:if="${current == null}">
+                        <span class="header-btn">
+                            <a href="/customers/create">Создать Клиента</a>
+                        </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+</body>
+</html>

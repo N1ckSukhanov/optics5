@@ -3,14 +3,14 @@
 
 <body>
 
-<div th:fragment="new_option(option, currentOption, addedOptions)">
+<div th:fragment="bit(option, currentOption, addedOptions)">
     <h4 class="change-option"><a href="/options/clear">Выбрать другое свойство</a></h4>
 
     <h3 th:text="'Выбрано свойство: ' + ${currentOption.getReadableType()}" class="option_heading"></h3>
 
     <form th:action="@{/options/add}" th:object="${option}" th:method="POST" class="options-form">
-        <div th:replace="~{parts :: hidden(type, ${option.getType()})}"></div>
-        <div th:replace="~{parts :: field('Название', name)}"></div>
+        <div th:replace="~{p :: hidden(type, ${option.getType()})}"></div>
+        <div th:replace="~{p :: field('Название', name)}"></div>
         <button class="search-but">Добавить</button>
     </form>
 

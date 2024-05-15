@@ -31,7 +31,7 @@
 
 <div th:fragment="field_if(name, field, cond)">
     <div th:if="${cond}">
-        <div th:replace="~{parts :: field(${name}, ${field})}"></div>
+        <div th:replace="~{p :: field(${name}, ${field})}"></div>
     </div>
 </div>
 
@@ -62,7 +62,7 @@
 </span>
 
 <span th:fragment="select_(name, field, options)">
-    <span th:replace="~{parts :: select(${name}, ${field}, ${options}, '100')}"></span>
+    <span th:replace="~{p :: select(${name}, ${field}, ${options}, '100')}"></span>
     <br/>
 </span>
 

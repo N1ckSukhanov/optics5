@@ -2,15 +2,15 @@
 <html lang="en">
 
 <body>
-<div th:fragment="customer(customer)">
+<div th:fragment="bit(customer)">
   <h3 class="customer_heading">Новый Клиент</h3>
 
   <div class="customer_form">
     <form th:action="@{/customers/add}" th:object="${customer}" th:method="POST">
-      <div th:replace="~{parts :: hidden(id, ${customer.getId()})}"></div>
-      <div th:replace="~{parts :: field('Имя', name)}"></div>
-      <div th:replace="~{parts :: field('Телефон', phone)}"></div>
-      <div th:replace="~{parts :: date('Дата рождения', birthday)}"></div>
+      <div th:replace="~{p :: hidden(id, ${customer.getId()})}"></div>
+      <div th:replace="~{p :: field('Имя', name)}"></div>
+      <div th:replace="~{p :: field('Телефон', phone)}"></div>
+      <div th:replace="~{p :: date('Дата рождения', birthday)}"></div>
       <button style="margin-top: 20px;" class="search-but">Сохранить</button>
     </form>
   </div>

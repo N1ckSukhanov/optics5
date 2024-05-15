@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-with, initial-scale: 1.0">
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+  <link rel="icon" type="image/ico" th:href="@{/favicon.ico}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/products.css}">
+  <link rel="stylesheet" th:href="@{/css/customers.css}">
+  <link rel="stylesheet" th:href="@{/css/options.css}">
+  <link rel="stylesheet" th:href="@{/css/new_lenses.css}">
+  <link rel="stylesheet" th:href="@{/css/new_recipe.css}">
+  <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+  <title>Главная</title>
+</head>
+
+<body>
+<header th:replace="~{main/head :: head(${current}, ${search})}"></header>
+<!-- Website page - with sidebar on the left side and content on the right -->
+<div class="page">
+  <aside th:replace="~{main/sidebar :: bit()}"></aside>
+
+  <main class="content">
+
+    <div th:switch="${appState}">
+
+      <div th:case="'not_found'">
+        <div th:replace="~{not_found :: bit(${my_path})}"></div>
+        <div th:replace="~{product/products :: bit(${products}, ${current})}"></div>
+      </div>
+
+      <div th:case="'products'">
+        <div th:replace="~{product/products :: bit(${products}, ${current})}"></div>
+      </div>
+
+      <div th:case="'customers'">
+        <div th:replace="~{customer/customers :: bit(${customers})}"></div>
+      </div>
+
+      <div th:case="'new_customer'">
+        <div th:replace="~{customer/new_customer :: bit(${customer})}"></div>
+      </div>
+
+      <div th:case="'new_recipe'">
+        <div th:replace="~{product/new_recipe :: bit(${product}, ${current}, ${options})}"></div>
+      </div>
+
+      <div th:case="'new_lenses'">
+        <div th:replace="~{product/new_lenses :: bit(${product}, ${options})}"></div>
+      </div>
+
+      <div th:case="'new_other'">
+        <div th:replace="~{product/new_other :: bit(${product}, ${isSunglasses})}"></div>
+      </div>
+
+      <div th:case="'customer_from_recipe'">
+        <div th:replace="~{customer/customer_from_recipe :: bit(${customer}, ${customers})}"></div>
+      </div>
+
+      <div th:case="'choose_option'">
+        <div th:replace="~{option/choose_option :: bit(${option}, ${chooseOptions})}"></div>
+      </div>
+
+      <div th:case="'new_option'">
+        <div th:replace="~{option/new_option :: bit(${option}, ${currentOption}, ${addedOptions})}"></div>
+      </div>
+
+      <div th:case="'upload'">
+        <div th:replace="~{product/upload :: bit()}"></div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+<script th:src="@{/js/calculate_recipe.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
+<script th:src="@{/js/check_num.js}"></script>
+<script th:src="@{/js/input.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
+</html>

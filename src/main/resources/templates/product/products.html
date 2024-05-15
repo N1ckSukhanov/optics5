@@ -3,7 +3,7 @@
 
 <body>
 
-<div th:fragment="products(products, current)">
+<div th:fragment="bit(products, current)">
     <div th:if="${!products.isEmpty()}">
         <h3 th:if="${current == null}" class="product_heading">Оформление</h3>
         <div th:if="${current != null}">
