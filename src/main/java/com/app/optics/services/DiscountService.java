@@ -28,7 +28,7 @@ public class DiscountService {
         if (count < 1)
             return 0;
         else if (count < 11)
-            return count + 5;
+            return count + 4;
         else
             return 15;
     }

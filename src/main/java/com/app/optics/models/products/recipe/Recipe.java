@@ -62,6 +62,10 @@ public class Recipe extends Product {
         cost.setRecipe(this);
     }
 
+    public void setDiscountPercent(int discountPercent){
+        cost.setDiscountPercent(discountPercent);
+    }
+
     public Recipe(ProductType type, Integer orderId, String forWho, String frame, String ratio, String coverage, String geometry, Integer distance, String info, LocalDate deliveryDate) {
         this.productType = type;
         this.orderId = orderId;

@@ -5,6 +5,7 @@ public enum AppState {
     CUSTOMERS,
     NEW_CUSTOMER,
     NEW_RECIPE,
+    OLD_RECIPE,
     NEW_LENSES,
     NEW_OTHER,
     EDIT_PRODUCT,

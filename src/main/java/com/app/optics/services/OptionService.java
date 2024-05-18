@@ -104,7 +104,6 @@ public class OptionService {
                 .build();
 
         model.addAttribute("options", options);
-        model.addAttribute("discount", discountService.getCustomerDiscount(customerService.getCurrent()));
     }
 
     @AllArgsConstructor

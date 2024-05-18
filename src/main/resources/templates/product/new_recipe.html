@@ -63,11 +63,12 @@
                 <div th:replace="~{p :: field('Линзы', 'cost.lenses')}">Линзы</div>
                 <div th:replace="~{p :: field('Работа', 'cost.work')}">Работа</div>
                 <div th:replace="~{p :: field('Сумма', 'cost.sum')}">Сумма</div>
-                <div>
+                <div th:replace="~{p :: field('Скидка', 'cost.discountPercent')}">Сумма</div>
+                <!--<div>
                     <label th:text="Скидка"></label>
                     <span th:id="Скидка" th:text="${discount}" th:value="${discount}"></span><span>%</span>
-                    <!--                        <input th:id="Скидка" th:value="${discount}" style="text-align:center;" autocomplete="off" disabled/><br/>-->
-                </div>
+                    &lt;!&ndash;                        <input th:id="Скидка" th:value="${discount}" style="text-align:center;" autocomplete="off" disabled/><br/>&ndash;&gt;
+                </div>-->
                 <div th:replace="~{p :: field('Итого', 'cost.total')}">Итого</div>
                 <div th:replace="~{p :: field('Оплачено', 'cost.paid')}">Оплачено</div>
                 <div th:replace="~{p :: field('Доплата', 'cost.extra')}">Доплата</div>

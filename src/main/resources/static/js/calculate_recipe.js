@@ -37,6 +37,7 @@ work.on("keyup", () => calculateSum())
 
 sum.on("keyup", () => calculateTotal())
 discount.on("keyup", () => calculateTotal())
+total.on("keyup", () => calculateTotal())
 
 total.on("keyup", () => calculateExtra())
 paid.on("keyup", () => calculateExtra())
@@ -48,9 +49,9 @@ function calculateSum() {
 function calculateTotal() {
     let s = check_num(sum)
     if (s)
-        total.val(parseInt(s * (1 - 0.01 * parseInt(discount.text()))))
+        total.val(parseInt(s * (1 - 0.01 * check_num(discount))))
 }
-
+// total.val(parseInt(s * (1 - 0.01 * parseInt(discount.text()))))
 function calculateExtra() {
     calculate_diff([total, paid], extra)
 }

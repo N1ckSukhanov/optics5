@@ -4,7 +4,7 @@
 <body>
 
 <header th:fragment="bit(current, search)">
-  <form class="search-form" th:method="GET" th:action="@{/static}">
+  <form class="search-form" th:method="GET" th:action="@{/}">
     <label class="search-label">Поиск</label>
     <input class="search" th:id="search" th:name="search" th:value="${search}" placeholder="Телефон / Имя"
            autocomplete="off"/>

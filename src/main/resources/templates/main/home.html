@@ -21,7 +21,6 @@
 <div class="page">
   <aside th:replace="~{main/sidebar :: bit()}"></aside>
 
-
   <main class="content">
 
     <div th:switch="${appState}">
@@ -44,6 +43,10 @@
       </div>
 
       <div th:case="'new_recipe'">
+        <div th:replace="~{product/new_recipe :: bit(${product}, ${current}, ${options})}"></div>
+      </div>
+
+      <div th:case="'old_recipe'">
         <div th:replace="~{product/new_recipe :: bit(${product}, ${current}, ${options})}"></div>
       </div>
 

@@ -26,6 +26,8 @@ public class Cost {
     private Integer paid;
     private Integer extra;
 
+    private Integer discountPercent;
+
     @Override
     public String toString() {
         Integer d = (sum != null && total != null) ? sum - total : null;

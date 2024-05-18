@@ -22,6 +22,7 @@ public class HomeController {
     private final ProductService productService;
     private final OptionService optionService;
     private final PhotoService photoService;
+    private final DiscountService discountService;
 
     @GetMapping("")
     public String home(@RequestParam(required = false, defaultValue = "") String search,
@@ -47,7 +48,16 @@ public class HomeController {
             }
             case CUSTOMERS -> model.addAttribute("customers", customerService.getCustomersBySearch(search));
             case NEW_CUSTOMER -> model.addAttribute("customer", customerService.getCustomerFromSearch());
-            case NEW_RECIPE -> optionService.addProductOptions(model, new Recipe());
+            case NEW_RECIPE -> {
+                Recipe recipe = new Recipe();
+                recipe.setDiscountPercent(discountService.getCustomerDiscount(customerService.getCurrent()));
+                optionService.addProductOptions(model, recipe);
+            }
+            case OLD_RECIPE -> {
+                Recipe recipe = new Recipe();
+                recipe.setDiscountPercent(0);
+                optionService.addProductOptions(model, recipe);
+            }
             case NEW_LENSES -> optionService.addProductOptions(model, new Lenses());
             case NEW_OTHER -> {
                 ProductType type = ProductType.valueOf(productService.getOtherType().toUpperCase());

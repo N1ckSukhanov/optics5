@@ -101,6 +101,12 @@ public class ProductController {
         return HOME;
     }
 
+    @GetMapping("/recipe/old")
+    public String createRecipeOld() {
+        appService.setAppState(AppState.OLD_RECIPE);
+        return HOME;
+    }
+
     @PostMapping("/recipe")
     public String addRecipe(@ModelAttribute Recipe recipe) {
         recipe.setDiscountFromOthers();

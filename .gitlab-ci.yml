@@ -43,7 +43,7 @@ build spring:
                    -t ${CI_REGISTRY_IMAGE}/spring:${CI_COMMIT_REF_SLUG} .
     - docker push ${CI_REGISTRY_IMAGE}/spring:${CI_COMMIT_REF_SLUG}
   tags:
-    - build
+    - gitlab-org-docker
   only:
     changes:
       - src/**/*
