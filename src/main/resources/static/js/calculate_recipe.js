@@ -51,6 +51,7 @@ function calculateTotal() {
     if (s)
         total.val(parseInt(s * (1 - 0.01 * check_num(discount))))
 }
+
 // total.val(parseInt(s * (1 - 0.01 * parseInt(discount.text()))))
 function calculateExtra() {
     calculate_diff([total, paid], extra)

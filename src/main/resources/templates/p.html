@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
-    <title>Input</title>
+  <meta charset="UTF-8">
+  <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+  <title>Input</title>
 </head>
 <body>
 
@@ -24,25 +24,25 @@
 </span>
 
 <div th:fragment="field(name, field)">
-    <label th:text="${name}"></label>
-    <input th:id="${name}" th:field="*{__${field}__}" autocomplete="off"/>
-    <br/>
+  <label th:text="${name}"></label>
+  <input th:id="${name}" th:field="*{__${field}__}" autocomplete="off"/>
+  <br/>
 </div>
 
 <div th:fragment="field_if(name, field, cond)">
-    <div th:if="${cond}">
-        <div th:replace="~{p :: field(${name}, ${field})}"></div>
-    </div>
+  <div th:if="${cond}">
+    <div th:replace="~{p :: field(${name}, ${field})}"></div>
+  </div>
 </div>
 
 <div th:fragment="hidden(field, value)">
-    <input type="hidden" th:field="*{__${field}__}" th:value="${value}"/>
+  <input type="hidden" th:field="*{__${field}__}" th:value="${value}"/>
 </div>
 
 <div th:fragment="date(name, field)">
-    <label th:text="${name}"></label>
-    <input th:field="*{__${field}__}" type="date"/>
-    <br/>
+  <label th:text="${name}"></label>
+  <input th:field="*{__${field}__}" type="date"/>
+  <br/>
 </div>
 
 <span th:fragment="select(name, field, options, len)">

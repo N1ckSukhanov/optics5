@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class AppService {
     AppState appState = AppState.PRODUCTS;
 
-    public String getModelAppState(){
+    public String getModelAppState() {
         return appState.toString().toLowerCase();
     }
 }

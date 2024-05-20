@@ -4,16 +4,16 @@
 <body>
 
 <div th:fragment="bit(product, isSunglasses)">
-    <h3 th:text="${product.productHeader()}" class="new_lenses_heading"></h3>
+  <h3 th:text="${product.productHeader()}" class="new_lenses_heading"></h3>
 
-    <form th:action="@{/products/other}" th:object="${product}" th:method="POST" class="new_lenses_form">
-        <div th:replace="~{p :: hidden(id, ${product.getId()})}"></div>
-        <div th:replace="~{p :: hidden(productType, ${product.getProductType()})}"></div>
-        <div th:replace="~{p :: field_if('Артикул', article, ${isSunglasses})}"></div>
-        <div th:replace="~{p :: field('Название', name)}"></div>
-        <div th:replace="~{p :: field('Цена', price)}"></div>
-        <button style="margin-top: 20px;" class="search-but">Сохранить</button>
-    </form>
+  <form th:action="@{/products/other}" th:object="${product}" th:method="POST" class="new_lenses_form">
+    <div th:replace="~{p :: hidden(id, ${product.getId()})}"></div>
+    <div th:replace="~{p :: hidden(productType, ${product.getProductType()})}"></div>
+    <div th:replace="~{p :: field_if('Артикул', article, ${isSunglasses})}"></div>
+    <div th:replace="~{p :: field('Название', name)}"></div>
+    <div th:replace="~{p :: field('Цена', price)}"></div>
+    <button style="margin-top: 20px;" class="search-but">Сохранить</button>
+  </form>
 </div>
 
 </body>

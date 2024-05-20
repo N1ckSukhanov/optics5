@@ -62,7 +62,7 @@ public class Recipe extends Product {
         cost.setRecipe(this);
     }
 
-    public void setDiscountPercent(int discountPercent){
+    public void setDiscountPercent(int discountPercent) {
         cost.setDiscountPercent(discountPercent);
     }
 
@@ -107,7 +107,7 @@ public class Recipe extends Product {
         return productHeader() + " : " + readableDate(receptionDate) + " : " + p + "₽";
     }
 
-    public void setDiscountFromOthers(){
+    public void setDiscountFromOthers() {
         if (cost == null || cost.getTotal() == null || cost.getSum() == null)
             return;
         cost.setDiscount(cost.getSum() - cost.getTotal());

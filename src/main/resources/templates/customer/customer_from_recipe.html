@@ -4,19 +4,19 @@
 <body>
 
 <div th:fragment="bit(customer, customers)">
-    <!--    <h4 class="change-client"><a href="/">Выбрать клиента позже</a></h4>-->
-    <h4 class="change-client"><a href="/customers/create">Создать Клиента на основе Поиска</a></h4>
+  <!--    <h4 class="change-client"><a href="/">Выбрать клиента позже</a></h4>-->
+  <h4 class="change-client"><a href="/customers/create">Создать Клиента на основе Поиска</a></h4>
 
-    <div class="customer_form">
-        <form th:action="@{/customers/from_recipe}" th:object="${customer}" th:method="POST">
-            <div th:replace="~{p :: hidden(id, ${customer.getId()})}"></div>
-            <div th:replace="~{p :: field('Имя', name)}"></div>
-            <div th:replace="~{p :: field('Телефон', phone)}"></div>
-            <button class="search-but">Найти Заново</button>
-        </form>
-    </div>
+  <div class="customer_form">
+    <form th:action="@{/customers/from_recipe}" th:object="${customer}" th:method="POST">
+      <div th:replace="~{p :: hidden(id, ${customer.getId()})}"></div>
+      <div th:replace="~{p :: field('Имя', name)}"></div>
+      <div th:replace="~{p :: field('Телефон', phone)}"></div>
+      <button class="search-but">Найти Заново</button>
+    </form>
+  </div>
 
-    <div th:replace="~{customer/customers :: customers(${customers})}"></div>
+  <div th:replace="~{customer/customers :: customers(${customers})}"></div>
 </div>
 
 </body>

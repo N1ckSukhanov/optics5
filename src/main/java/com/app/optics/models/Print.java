@@ -14,12 +14,12 @@ public class Print {
         return object.toString();
     }
 
-    public static String get_plus(Object object){
+    public static String get_plus(Object object) {
         if (object == null) {
             return EMPTY;
         }
         if (object instanceof Double d) {
-            if (d > 0){
+            if (d > 0) {
                 return "+" + d;
             }
             return d.toString();

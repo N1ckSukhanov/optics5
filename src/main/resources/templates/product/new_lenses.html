@@ -4,17 +4,17 @@
 <body>
 
 <div th:fragment="bit(product, options)">
-    <h3 th:text="${product.productHeader()}" class="new_lenses_heading"></h3>
+  <h3 th:text="${product.productHeader()}" class="new_lenses_heading"></h3>
 
-    <form th:action="@{/products/lenses}" th:object="${product}" th:method="POST" class="new_lenses_form">
-        <div th:replace="~{p :: hidden(id, ${product.getId()})}"></div>
-        <div th:replace="~{p :: select_('Название', name, ${options.name})}"></div>
-        <div th:replace="~{p :: select_('Оптич. сила', power, ${options.power})}"></div>
-        <div th:replace="~{p :: select_('Кривизна', curvature, ${options.curvature})}"></div>
-        <div th:replace="~{p :: select_('Цвет', color, ${options.color})}"></div>
-        <div th:replace="~{p :: field('Цена', price)}"></div>
-        <button style="margin-top: 20px;" class="search-but">Сохранить</button>
-    </form>
+  <form th:action="@{/products/lenses}" th:object="${product}" th:method="POST" class="new_lenses_form">
+    <div th:replace="~{p :: hidden(id, ${product.getId()})}"></div>
+    <div th:replace="~{p :: select_('Название', name, ${options.name})}"></div>
+    <div th:replace="~{p :: select_('Оптич. сила', power, ${options.power})}"></div>
+    <div th:replace="~{p :: select_('Кривизна', curvature, ${options.curvature})}"></div>
+    <div th:replace="~{p :: select_('Цвет', color, ${options.color})}"></div>
+    <div th:replace="~{p :: field('Цена', price)}"></div>
+    <button style="margin-top: 20px;" class="search-but">Сохранить</button>
+  </form>
 </div>
 
 </body>
