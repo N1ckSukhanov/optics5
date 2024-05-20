@@ -14,7 +14,7 @@ import java.nio.file.Path;
 @RequestMapping("/download")
 public class DownloadController {
 
-    @GetMapping(produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody byte[] downloadFile() throws IOException {
         return Files.readAllBytes(Path.of("/data/optics.mv.db"));
     }
