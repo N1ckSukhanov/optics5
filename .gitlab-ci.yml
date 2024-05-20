@@ -4,32 +4,6 @@ stages:
   - test
   - deploy
 
-build docker:
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
-    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
-  tags:
-    - yandex-sudo
-
-
-
-
-
-
-
-
-
-
-
-
-stages:
-  - lint
-  - build
-  - test
-  - deploy
-
 
 build maven:
   image: docker:stable
@@ -65,7 +39,7 @@ build spring:
   script:
     - echo ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - docker build --build-arg my_maven=${CI_REGISTRY_IMAGE}/my_maven:${CI_COMMIT_REF_SLUG}
+    - docker build --build-arg my_maven=${CI_REGISTRY_IMAGE}/my_maven:${CI_COMMIT_REF_SLUG} 
                    -t ${CI_REGISTRY_IMAGE}/spring:${CI_COMMIT_REF_SLUG} .
     - docker push ${CI_REGISTRY_IMAGE}/spring:${CI_COMMIT_REF_SLUG}
   tags:
