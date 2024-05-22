@@ -61,3 +61,4 @@ deploy to prod:
     - docker run -d --name ${CI_PROJECT_NAME} -p 80:8080 ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
   tags:
     - deploy
+
