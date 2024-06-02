@@ -19,24 +19,12 @@ public class ExceptionController {
     private final AppService appService;
     private final CustomerService customerService;
 
-    @ExceptionHandler(NoResourceFoundException.class)
-    public String handleConflict(NoResourceFoundException e) {
-        appService.setAppState(AppState.NOT_FOUND);
-        customerService.setNotFound(e.getResourcePath());
-        e.printStackTrace();
-        return HOME;
-    }
-
-    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
-    public String handleNotFound(ChangeSetPersister.NotFoundException e) {
-        return HOME;
-    }
-
     @ExceptionHandler(Throwable.class)
     public String handleThrowable(Throwable thr) {
         appService.setAppState(AppState.NOT_FOUND);
-        customerService.setNotFound(thr.getMessage());
+        customerService.setNotFound("error");
         thr.printStackTrace();
+        log.error("not found", thr);
         return HOME;
     }
 }

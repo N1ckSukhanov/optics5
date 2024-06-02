@@ -5,6 +5,7 @@ import com.app.optics.models.Customer;
 import com.app.optics.services.AppService;
 import com.app.optics.services.CustomerService;
 import com.app.optics.services.ProductService;
+import com.app.optics.services.SmsSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,16 @@ public class CustomerController {
     private final AppService appService;
     private final CustomerService customerService;
     private final ProductService productService;
+
+
+    /**
+     * Customer has name / phone from search
+     */
+    @GetMapping("/send")
+    public String sendCustomer() {
+        SmsSender.sendSms("79811944787", "Optics sms!", "TEST-SMS");
+        return "redirect:/";
+    }
 
     /**
      * Customer has name / phone from search
