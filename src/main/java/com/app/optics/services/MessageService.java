@@ -63,6 +63,7 @@ public class MessageService {
         System.out.println("/status - id: " + id + ", status: " + status);
     }
 
+
     public String balance() {
         String address = "/messages/v2/balance/";
         String result = createRequest(address);
