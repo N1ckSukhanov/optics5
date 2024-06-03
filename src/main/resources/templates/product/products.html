@@ -4,6 +4,10 @@
 <body>
 
 <div th:fragment="bit(products, current)">
+  <div th:if="${error}">
+    <h4>Произошла ошибка - обратитесь к администратору</h4>
+    <hr/>
+  </div>
   <div th:if="${!products.isEmpty()}">
     <h3 th:if="${current == null}" class="product_heading">Оформление</h3>
     <div th:if="${current != null}">
@@ -36,7 +40,7 @@
   <div th:if="${!images.isEmpty()}" class="product_image">
     <div th:each="image: ${images}">
       <img src="" th:attrappend="src=${image.getImage()}" width="500px" alt="image">
-      <div><a th:href="@{/products/images/{image_id}/delete(image_id=${image.getId()})}">Удалить</a></div>
+      <div><a th:href="@{/images/delete/{image_id}(image_id=${image.getId()})}">Удалить</a></div>
     </div>
   </div>
 

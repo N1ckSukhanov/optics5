@@ -73,6 +73,24 @@
       <div th:case="'upload'">
         <div th:replace="~{product/upload :: bit()}"></div>
       </div>
+
+      <div th:case="'send_message'">
+        <div th:replace="~{message/personal :: bit()}"></div>
+      </div>
+
+      <div th:case="'product_messages'">
+        <div th:replace="~{message/products :: bit(${products})}"></div>
+      </div>
+
+      <div th:case="'history_messages'">
+        <div th:replace="~{message/history :: bit(${messages})}"></div>
+      </div>
+
+      <div th:case="'message_panel'">
+        <div th:replace="~{message/panel :: bit(${balance})}"></div>
+      </div>
+
+
     </div>
   </main>
 </div>

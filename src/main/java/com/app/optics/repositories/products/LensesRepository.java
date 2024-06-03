@@ -9,4 +9,6 @@ public interface LensesRepository extends JpaRepository<Lenses, Integer> {
     List<Lenses> findByCustomerId(Integer id);
 
     void deleteAllByCustomerId(Integer id);
+
+    List<Lenses> findAllBySendMessage(Boolean send);
 }

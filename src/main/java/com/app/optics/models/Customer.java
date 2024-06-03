@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static com.app.optics.util.ObjectConverter.readableDate;
 import static com.app.optics.util.ObjectConverter.str;
@@ -31,6 +32,9 @@ public class Customer {
         this.name = name;
         this.phone = phone;
     }
+
+    @OneToMany
+    private List<Message> messages;
 
     @Transient
     private Integer productCount;

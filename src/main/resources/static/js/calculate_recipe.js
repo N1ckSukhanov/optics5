@@ -48,8 +48,14 @@ function calculateSum() {
 
 function calculateTotal() {
     let s = check_num(sum)
-    if (s)
-        total.val(parseInt(s * (1 - 0.01 * check_num(discount))))
+    if (s){
+        let disc = check_num(discount)
+        if (disc < 100)
+            total.val(parseInt(s * (1 - 0.01 * disc)))
+        else
+            total.val(parseInt(s - disc))
+    }
+
 }
 
 // total.val(parseInt(s * (1 - 0.01 * parseInt(discount.text()))))

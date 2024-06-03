@@ -47,14 +47,6 @@ public class OptionService {
         }
     }
 
-    public Product createProductByType(ProductType type) {
-        return switch (type) {
-            case RECIPE -> new Recipe();
-            case LENSES -> new Lenses();
-            default -> new Other(type);
-        };
-    }
-
     public void deleteById(int id) {
         optionRepository.deleteById(id);
     }

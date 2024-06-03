@@ -6,11 +6,10 @@ import com.app.optics.models.Photo;
 import com.app.optics.models.Print;
 import com.app.optics.models.products.Lenses;
 import com.app.optics.models.products.Other;
+import com.app.optics.models.products.Product;
+import com.app.optics.models.products.ProductType;
 import com.app.optics.models.products.recipe.Recipe;
-import com.app.optics.services.AppService;
-import com.app.optics.services.CustomerService;
-import com.app.optics.services.PhotoService;
-import com.app.optics.services.ProductService;
+import com.app.optics.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -22,7 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import static com.app.optics.util.Constants.HOME;
+import static com.app.optics.util.Constants.*;
 
 @Controller
 @RequestMapping("/products")
@@ -32,44 +31,20 @@ public class ProductController {
     private final CustomerService customerService;
     private final AppService appService;
     private final PhotoService photoService;
+    private final OptionService optionService;
+    private final DiscountService discountService;
 
-    @GetMapping("/upload")
-    public String uploadPage() {
-        appService.setAppState(AppState.UPLOAD);
-        return HOME;
-    }
-
-    @PostMapping("/upload")
-    public String uploadRecipe(@RequestParam MultipartFile file) {
-        System.out.println(file.getName() + file.getOriginalFilename() + file.getSize());
-        photoService.save(file);
-        return HOME;
-    }
-
-    @GetMapping("/photo/{id}")
-    public ResponseEntity<byte[]> getPhoto(@PathVariable int id) {
-        Photo photo = photoService.getPhoto(id);
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photo.getName() + "\"")
-                .body(photo.getData());
-    }
-
-    @GetMapping(value = "/images/{imageId}", produces = MediaType.IMAGE_PNG_VALUE)
-    public Resource downloadImage(@PathVariable Integer imageId) {
-        return new ByteArrayResource(photoService.getPhoto(imageId).getData());
-    }
-
-    @GetMapping(value = "/images/{imageId}/delete")
-    public String deleteImage(@PathVariable Integer imageId) {
-        System.out.println("delete image" + imageId);
-        photoService.delete(imageId);
+    @GetMapping()
+    public String products(Model model) {
+        appService.setModelState(AppState.PRODUCTS, model);
+        customerService.processNotFound(model);
+        model.addAttribute("products", productService.getProductsByCurrent());
+        model.addAttribute("images", photoService.getImagesByCurrent());
         return HOME;
     }
 
     @GetMapping("/print/{id}")
     public String printRecipe(@PathVariable int id, Model model) {
-        appService.setAppState(AppState.PRODUCTS);
         model.addAttribute("product", (Recipe) productService.getProductById(id));
         model.addAttribute("customer", customerService.getCurrent());
         model.addAttribute("print", new Print());
@@ -77,82 +52,96 @@ public class ProductController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editProduct(@PathVariable int id) {
+    public String editProduct(@PathVariable int id, Model model) {
         productService.setEditId(id);
-        appService.setAppState(AppState.EDIT_PRODUCT);
+        Product product = productService.getProductById(productService.getEditId());
+        optionService.addProductOptions(model, product);
+        AppState state = switch (product.getProductType()) {
+            case RECIPE -> AppState.NEW_RECIPE;
+            case LENSES -> AppState.NEW_LENSES;
+            default -> AppState.NEW_OTHER;
+        };
+        appService.setModelState(state, model);
         return HOME;
     }
 
     @GetMapping("/open/{id}")
     public String openProduct(@PathVariable int id) {
         productService.setProductOpen(id);
-        return HOME;
+        return TO_PRODUCTS;
     }
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable int id) {
         productService.deleteProductById(id);
-        return HOME;
+        return TO_PRODUCTS;
     }
 
     @GetMapping("/recipe")
-    public String createRecipe() {
-        appService.setAppState(AppState.NEW_RECIPE);
+    public String createRecipe(Model model) {
+        appService.setModelState(AppState.NEW_RECIPE, model);
+        Recipe recipe = new Recipe();
+        recipe.setDiscountPercent(discountService.getCustomerDiscount(customerService.getCurrent()));
+        // todo method to set discount
+        optionService.addProductOptions(model, recipe);
         return HOME;
     }
 
     @GetMapping("/recipe/old")
-    public String createRecipeOld() {
-        appService.setAppState(AppState.OLD_RECIPE);
+    public String createRecipeOld(Model model) {
+        // todo old and new recipe in one method
+        appService.setModelState(AppState.OLD_RECIPE, model);
+        Recipe recipe = new Recipe();
+        recipe.setDiscountPercent(0);
+        optionService.addProductOptions(model, recipe);
         return HOME;
     }
 
     @PostMapping("/recipe")
-    public String addRecipe(@ModelAttribute Recipe recipe) {
+    public String addRecipe(@ModelAttribute Recipe recipe, Model model) {
         recipe.setDiscountFromOthers();
         productService.putProduct(recipe);
+        // todo create customer by recipe
         String name = recipe.getCustomerName();
         String phone = recipe.getCustomerPhone();
 
         if (customerService.isCurrent() || (name.isBlank() && phone.isBlank())) {
-            appService.setAppState(AppState.PRODUCTS);
-        } else {
+            appService.setModelState(AppState.PRODUCTS, model);
+            return TO_PRODUCTS;
+        } else {;
             customerService.setLastCustomer(new Customer(name, phone));
-            appService.setAppState(AppState.CUSTOMER_FROM_RECIPE);
+            return "redirect:/customers/from_recipe";
         }
-        return HOME;
     }
 
     @GetMapping("/lenses")
-    public String createLenses() {
-        appService.setAppState(AppState.NEW_LENSES);
+    public String createLenses(Model model) {
+        appService.setModelState(AppState.NEW_LENSES, model);
+        optionService.addProductOptions(model, new Lenses());
         return HOME;
     }
 
     @PostMapping("/lenses")
     public String addLenses(@ModelAttribute Lenses lenses) {
         productService.putProduct(lenses);
-        appService.setAppState(AppState.PRODUCTS);
-        return HOME;
+        return TO_PRODUCTS;
     }
 
     @GetMapping("/other/{type}")
-    public String createOther(@PathVariable String type) {
-        productService.setOtherType(type);
-        appService.setAppState(AppState.NEW_OTHER);
+    public String createOther(@PathVariable String type, Model model) {
+        appService.setModelState(AppState.NEW_OTHER, model);
+        optionService.addProductOptions(model, new Other(ProductType.valueOf(type.toUpperCase())));
         return HOME;
     }
 
     @PostMapping("/other")
     public String addOther(@ModelAttribute Other other) {
         productService.putProduct(other);
-        appService.setAppState(AppState.PRODUCTS);
-        return HOME;
+        return TO_PRODUCTS;
     }
 
-    @GetMapping("/show_products")
-    public String showProducts() {
-        appService.setAppState(AppState.PRODUCTS);
-        return HOME;
+    @GetMapping(value = "/images/{imageId}", produces = MediaType.IMAGE_PNG_VALUE)
+    public Resource downloadImage(@PathVariable Integer imageId) {
+        return new ByteArrayResource(photoService.getPhoto(imageId).getData());
     }
 }

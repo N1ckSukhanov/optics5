@@ -90,6 +90,7 @@ header {
     margin-top: 20px;
     display: flex;
     justify-content: center;
+    color: black;
 }
 
 .header-gui {
@@ -167,7 +168,7 @@ aside > ul > li {
 .btn-sidebar {
     padding: 10px;
     border-radius: 100px;
-    color: #4f120a;
+    color: #ffffff;
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.6);
     text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
     text-align: center;
@@ -180,15 +181,19 @@ aside > ul > li {
 }
 
 .btn-sidebar.clr-1 {
-    background-color: #19e650;
+    background-color: #453394;
 }
 
 .btn-sidebar.clr-2 {
-    background-color: #3dad3d;
+    background-color: #6c0ea2;
 }
 
 .btn-sidebar.clr-3 {
-    background-color: #4fa3e3;
+    background-color: #1269ad;
+}
+
+.btn-sidebar.clr-4 {
+    background-color: #2b1abb;
 }
 
 .btn-sidebar:hover {

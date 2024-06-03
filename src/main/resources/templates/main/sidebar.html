@@ -5,19 +5,37 @@
 
 <aside th:fragment="bit()">
   <ul>
-    <li><a class="btn-sidebar clr-0" href="/products/show_products">Перейти к Заказам</a></li>
-    <li><a class="btn-sidebar clr-1" href="/products/recipe">Заказ на Очки</a></li>
-    <li><a class="btn-sidebar clr-3" href="/products/recipe/old">Старый Заказ на Очки</a></li>
-    <li><a class="btn-sidebar clr-2" href="/products/lenses">Контактные Линзы</a></li>
-    <li><a class="btn-sidebar clr-2" href="/products/other/sunglasses">С/З Очки</a></li>
-    <li><a class="btn-sidebar clr-2" href="/products/other/case">Футляры</a></li>
-    <li><a class="btn-sidebar clr-2" href="/products/other/accessory">Аксессуары</a></li>
-    <li><a class="btn-sidebar clr-2" href="/products/other/other">Прочее</a></li>
-    <li><a class="btn-sidebar clr-2" href="/products/upload">Загрузить фото</a></li>
-    <li><a class="btn-sidebar clr-3" href="/options">Добавить опции</a></li>
-    <li><a class="btn-sidebar clr-3" href="/download">Скачать</a></li>
-    <li><a class="btn-sidebar clr-3" href="/customers/send">СМС!</a></li>
+    <li><a class="btn-sidebar clr-2" href="/products">Перейти к Заказам</a></li>
 
+    <li><a class="btn-sidebar clr-0" href="/sidebar/product">Добавить заказ</a></li>
+    <th:block th:if="${sidebar.product}">
+      <li><a class="btn-sidebar clr-2" href="/products/recipe">Заказ на Очки</a></li>
+      <li><a class="btn-sidebar clr-2" href="/products/lenses">Контактные Линзы</a></li>
+      <li><a class="btn-sidebar clr-2" href="/products/other/sunglasses">С/З Очки</a></li>
+      <li><a class="btn-sidebar clr-2" href="/products/other/case">Футляры</a></li>
+      <li><a class="btn-sidebar clr-2" href="/products/other/accessory">Аксессуары</a></li>
+      <li><a class="btn-sidebar clr-2" href="/products/other/other">Прочее</a></li>
+    </th:block>
+
+    <li><a class="btn-sidebar clr-0" href="/sidebar/old">Старый заказ</a></li>
+    <th:block th:if="${sidebar.old}">
+      <li><a class="btn-sidebar clr-2" href="/products/recipe/old">Старый Заказ на Очки</a></li>
+      <li><a class="btn-sidebar clr-2" href="/images/upload">Загрузить фото</a></li>
+    </th:block>
+
+    <li><a class="btn-sidebar clr-0" href="/sidebar/message">Сообщения</a></li>
+    <th:block th:if="${sidebar.message}">
+      <li><a class="btn-sidebar clr-2" href="/message/personal">Сообщение</a></li>
+      <li><a class="btn-sidebar clr-2" href="/message/lenses">Линзы</a></li>
+      <li><a class="btn-sidebar clr-2" href="/message/history">История</a></li>
+      <li><a class="btn-sidebar clr-2" href="/message/panel">Панель</a></li>
+    </th:block>
+
+    <li><a class="btn-sidebar clr-0" href="/sidebar/other">Другое</a></li>
+    <th:block th:if="${sidebar.other}">
+      <li><a class="btn-sidebar clr-2" href="/options">Добавить опции</a></li>
+      <li><a class="btn-sidebar clr-2" href="/download">Скачать</a></li>
+    </th:block>
   </ul>
 </aside>
 

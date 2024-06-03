@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<div th:fragment="bit(messages)">
+  <h3 class="new_lenses_heading" th:text="${my_header}"></h3>
+  <div th:each="message: ${messages}" class="customer_info">
+    <div class="customer_container">
+      <div th:text="'Имя: ' + ${message.name}"></div>
+      <div th:text="'Телефон: ' + ${message.phone}"></div>
+      <div th:text="'Дата: ' + ${message.date}"></div>
+      <div th:text="'Сообщение: ' + ${message.text}"></div>
+      <span class="right_elem">
+                <a th:href="@{/message/delete/{id}(id=${message.id})}">X</a>
+            </span>
+    </div>
+  </div>
+
+  <div th:if="${messages.isEmpty()}">
+    <h3 class="customer_heading">История пуста</h3>
+  </div>
+</div>
+
+</body>
+</html>

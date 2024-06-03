@@ -36,7 +36,7 @@ public class PhotoService {
         return photoRepository.findById(id).get();
     }
 
-    public List<Photo> getImagesByCustomer() {
+    public List<Photo> getImagesByCurrent() {
         return photoRepository.findByCustomerId(customerService.getCurrentId());
     }
 }

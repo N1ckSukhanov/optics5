@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<div th:fragment="bit(products)">
+  <h3 class="new_lenses_heading" th:text="${my_header}"></h3>
+  <div th:each="product: ${products}" class="customer_info">
+    <div class="customer_container">
+      <div th:text="'Имя: ' + ${product.name}"></div>
+      <div th:text="'Телефон: ' + ${product.phone}"></div>
+      <div th:text="'Дата: ' + ${product.date}"></div>
+      <span><a style="color: green" th:href="@{/message/lenses/send/{id}(id=${product.id})}">Отправить</a></span>
+      <span class="right_elem">
+                <a th:href="@{/message/delete/{id}(id=${product.id})}">X</a>
+            </span>
+    </div>
+  </div>
+
+  <div th:if="${products.isEmpty()}">
+    <h3 class="customer_heading">Покупки не найдены</h3>
+  </div>
+</div>
+
+</body>
+</html>

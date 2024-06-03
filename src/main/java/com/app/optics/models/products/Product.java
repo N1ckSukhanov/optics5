@@ -33,6 +33,8 @@ public class Product implements Comparable<Product> {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     protected LocalDate receptionDate = LocalDate.now();
 
+    protected Boolean sendMessage = false;
+
     @Transient
     protected Boolean newLine = false;
 

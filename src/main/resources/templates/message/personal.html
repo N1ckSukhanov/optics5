@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<div th:fragment="bit()">
+  <h3 class="new_lenses_heading">Персональное сообщение</h3>
+  <th:block th:if="${current == null}">
+    <h4>Перед отправкой сообщения выберите клиента!</h4>
+  </th:block>
+  <th:block th:if="${current != null}">
+    <h4 th:text="${current.name} + ' ' + ${current.phone}"></h4>
+    <form th:action="@{/message/personal}" th:object="${message}" th:method="POST" class="new_lenses_form">
+      <div th:replace="~{p :: field_area('Сообщение', text)}">Примечания</div>
+      <div th:replace="~{p :: date('Дата отправки', date)}"></div>
+      <button style="margin-top: 20px;" class="search-but">Сохранить</button>
+    </form>
+  </th:block>
+
+
+</div>
+
+</body>
+</html>

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,10 +22,24 @@ public class CustomerService {
     private final RecipeRepository recipeRepository;
     private final DiscountService discountService;
     private String lastSearch = "";
-    private String lastDelete = "";
     private Customer current = null;
     private Customer lastCustomer = null;
-    private String notFound;
+    private boolean notFound = false;
+
+    public void processNotFound(Model model){
+        model.addAttribute("error", notFound);
+        notFound = false;
+    }
+
+    public String getActualSearch(String search){
+        if (!lastSearch.isBlank() && (search == null || search.isBlank()))
+            search = lastSearch;
+
+        if (!search.isBlank())
+            current = null;
+
+        return search;
+    }
 
     public Customer getCustomerFromSearch() {
         String data = getLastSearch();
@@ -67,23 +82,9 @@ public class CustomerService {
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
-    public static String convertCyrilic(String message) {
-        char[] abcCyr = {' ', 'а', 'б', 'в', 'г', 'д', 'ѓ', 'е', 'ж', 'з', 'ѕ', 'и', 'ј', 'к', 'л', 'љ', 'м', 'н', 'њ', 'о', 'п', 'р', 'с', 'т', 'ќ', 'у', 'ф', 'х', 'ц', 'ч', 'џ', 'ш', 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Ј', 'К', 'Л', 'Љ', 'М', 'Н', 'Њ', 'О', 'П', 'Р', 'С', 'Т', 'Ќ', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Џ', 'Ш', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/', '-'};
-        String[] abcLat = {" ", "a", "b", "v", "g", "d", "]", "e", "zh", "z", "y", "i", "j", "k", "l", "q", "m", "n", "w", "o", "p", "r", "s", "t", "'", "u", "f", "h", "c", ";", "x", "{", "A", "B", "V", "G", "D", "}", "E", "Zh", "Z", "Y", "I", "J", "K", "L", "Q", "M", "N", "W", "O", "P", "R", "S", "T", "KJ", "U", "F", "H", "C", ":", "X", "{", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "/", "-"};
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < message.length(); i++) {
-            for (int x = 0; x < abcCyr.length; x++) {
-                if (message.charAt(i) == abcCyr[x]) {
-                    builder.append(abcLat[x]);
-                }
-            }
-        }
-        return builder.toString();
-    }
-
     public List<Customer> getCustomersBySearch(String search) {
 
-        setLastSearch(search);
+        lastSearch = search;
 
         if (search == null || search.isBlank())
             return Collections.emptyList();

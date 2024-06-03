@@ -33,7 +33,6 @@ public class ProductService {
     private final PhotoRepository photoRepository;
 
     private final CustomerService customerService;
-    private boolean showProducts = true;
     private final Set<Integer> openedProducts = new HashSet<>();
     @Getter
     @Setter
@@ -95,7 +94,6 @@ public class ProductService {
             product.setCustomerId(customerId);
             product.setSerialNumber(recipeRepository.findByCustomerId(customerId).size()
                     + photoRepository.findByCustomerId(customerId).size() + 1);
-            System.out.println("product.getSerialNumber() = " + product.getSerialNumber());
         }
 
         switch (product.getProductType()) {

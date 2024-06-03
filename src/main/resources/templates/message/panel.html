@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<div th:fragment="bit(balance)">
+  <h3 class="new_lenses_heading" th:text="${my_header}"></h3>
+  <h4 th:text="'Баланс: ' + ${balance}"></h4>
+
+  <form th:action="@{/message/panel}" th:object="${messageExample}" th:method="POST" class="new_lenses_form">
+    <div th:replace="~{p :: hidden(id, ${messageExample.id})}"></div>
+    <div th:replace="~{p :: field_area('Линзы', lenses)}"></div>
+    <div th:replace="~{p :: field_area('Рецепт', recipe)}"></div>
+    <button style="margin-top: 20px;" class="search-but">Сохранить</button>
+  </form>
+
+</div>
+
+</body>
+</html>
